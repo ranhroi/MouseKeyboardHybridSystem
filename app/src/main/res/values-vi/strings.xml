@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ============================================================ -->
+    <!-- APP                                                           -->
+    <!-- ============================================================ -->
+    <string name="app_name">Điều khiển chuột đa năng</string>
+    <string name="string_empty"> </string>
+
+    <!-- ============================================================ -->
+    <!-- ONBOARDING                                                    -->
+    <!-- ============================================================ -->
+    <string name="onboarding_title_hardware">1. Kết nối phần cứng</string>
+    <string name="onboarding_desc_hardware">Cắm thiết bị ESP32 vào cổng USB trên máy tính (PC/Laptop) để cấp nguồn và kích hoạt chế độ tìm kiếm.</string>
+    <string name="onboarding_title_welcome">2. Hoàn tất cài đặt</string>
+    <string name="onboarding_desc_welcome">Chào mừng bạn! Ứng dụng đã sẵn sàng trở thành bộ điều khiển từ xa thông minh cho máy tính của bạn.</string>
+    <string name="onboarding_title_bluetooth">3. Kết nối Bluetooth</string>
+    <string name="onboarding_desc_bluetooth">Bật Bluetooth trên điện thoại, sau đó quét và kết nối với thiết bị ESP32 HID để bắt đầu ghép nối không dây.</string>
+    <string name="onboarding_title_ready">4. Sẵn sàng điều khiển</string>
+    <string name="onboarding_desc_ready">Mọi thứ đã xong! Bây giờ bạn có thể di chuyển bằng chuột ảo, gõ bàn phím, hoặc kích hoạt các tổ hợp phím phức tạp chỉ với một lần chạm.</string>
+
+    <string name="onboarding_button_next">Tiếp theo</string>
+    <string name="onboarding_button_skip">Bỏ qua</string>
+    <string name="onboarding_button_back">Quay lại</string>
+    <string name="onboarding_button_get_started">Bắt đầu</string>
+
+    <!-- ============================================================ -->
+    <!-- DRAWER                                                        -->
+    <!-- ============================================================ -->
+    <string name="drawer_servers_manager">Quản lý Server</string>
+    <string name="drawer_shortkey_manager">Quản lý phím tắt</string>
+    <string name="drawer_quick_key_manager">Thiết lập thêm phím nhanh</string>
+    <string name="drawer_help_install">Hướng dẫn cài đặt</string>
+    <string name="drawer_settings_app">Cài đặt ứng dụng</string>
+    <string name="drawer_close">Đóng ngăn kéo</string>
+    <string name="drawer_nothing">Không có</string>
+    <string name="drawer_device_type">Loại thiết bị</string>
+
+    <!-- ============================================================ -->
+    <!-- SETTINGS SCREEN                                               -->
+    <!-- ============================================================ -->
+    <string name="settings_title">Cài đặt</string>
+    <string name="save_settings">Lưu cài đặt</string>
+    <string name="saved">Đã lưu!</string>
+
+    <!-- Language -->
+    <string name="language_select">Chọn ngôn ngữ</string>
+    <string name="language_auto">Tự động (Theo hệ thống)</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_english">Tiếng Anh</string>
+    <string name="language_japanese">Tiếng Nhật</string>
+    <string name="language_korean">Tiếng Hàn</string>
+    <string name="language_french">Tiếng Pháp</string>
+    <string name="language_current_auto">🔄 Đang dùng: %s</string>
+    <string name="language_current_selected">✅ Đã chọn: %s</string>
+
+    <!-- Instructions -->
+    <string name="instruction_language">0. Ngôn ngữ</string>
+    <string name="instruction_cursor">1. Tốc độ con trỏ &amp; cuộn</string>
+    <string name="instruction_mouse">2. Bật cuộn tự nhiên\nĐảo nút chuột trái/phải</string>
+    <string name="instruction_ui">3. Bật hiển thị trọng lượng giao diện</string>
+    <string name="instruction_service">4. Bật dịch vụ chạy nền</string>
+    <string name="instruction_os">Hệ điều hành máy tính</string>
+    <string name="instruction_icon_cache">Quản lý bộ nhớ đệm biểu tượng</string>
+    <string name="instruction_connection">Kết nối thiết bị</string>
+    <string name="instruction_reset_shortcut">Đặt lại phím tắt</string>
+
+    <!-- Cursor / Mouse -->
+    <string name="cursor_speed">Tốc độ con trỏ: %d%%</string>
+    <string name="scroll_speed">Tốc độ cuộn: %d%%</string>
+    <string name="pressed_speed">Tốc độ được ép phím: %d%%</string>
+    <string name="delay_text">Độ trễ gửi văn bản: %dL</string>
+    <string name="mouse_left_hand">Chuột tay trái</string>
+    <string name="mouse_natural_scroll">Cuộn tự nhiên</string>
+
+    <!-- OS Select -->
+    <string name="os_select_hint">Chọn hệ điều hành máy tính để dùng đúng phím tắt</string>
+    <string name="os_current">Hiện tại: %1$s</string>
+    <string name="os_windows">Windows</string>
+    <string name="os_mac">macOS</string>
+    <string name="os_linux">Linux</string>
+
+    <!-- UI Options -->
+    <string name="ui_show_floating">Hiển thị nổi</string>
+    <string name="ui_show_button_text">Hiển thị chữ &amp; biểu tượng nút</string>
+    <string name="ui_show_rotation">Hiển thị ngăn kéo bên phải</string>
+    <string name="auto_ping">Tự động Ping/Pong</string>
+
+    <!-- Icon Cache -->
+    <string name="icon_cache_reset">Đặt lại bộ nhớ đệm biểu tượng</string>
+    <string name="icon_cache_reset_success">Đã xóa bộ nhớ đệm biểu tượng</string>
+
+    <!-- Device Connection Config -->
+    <string name="device_name">Tên thiết bị</string>
+    <string name="device_name_required">Tên thiết bị không được để trống</string>
+    <string name="service_uuid">UUID dịch vụ</string>
+    <string name="write_char_uuid">UUID đặc tính ghi</string>
+    <string name="notify_char_uuid">UUID đặc tính thông báo</string>
+    <string name="notify_char_uuid_hint">UUID đặc tính thông báo (VD: 0000ffe1-0000-1000-8000-00805f</string>
+
+    <string name="uuid_invalid">UUID không hợp lệ (định dạng: 8-4-4-4-12)</string>
+
+    <!-- Lỗi kiểm tra -->
+    <string name="error_device_name_empty">Tên thiết bị không được để trống</string>
+    <string name="error_uuid_empty">UUID không được để trống</string>
+    <string name="error_uuid_invalid">UUID không hợp lệ (8-4-4-4-12)</string>
+
+    <!-- Reset Shortcuts -->
+    <string name="reset_system_shortcuts">Đặt lại phím tắt hệ thống</string>
+    <string name="reset_shortkey_success">Đã đặt lại phím tắt thành công</string>
+    <string name="reset_system_quick_key">Đặt lại phím nhanh hệ thống</string>
+    <string name="reset_quick_key_success">Đặt lại phím nhanh hệ thống thành công</string>
+
+    <!-- ============================================================ -->
+    <!-- CONNECTION STATUS BAR                                         -->
+    <!-- ============================================================ -->
+    <!-- Status labels -->
+    <string name="connection_status_label_connected">ĐÃ KẾT NỐI</string>
+    <string name="connection_status_label_connecting">ĐANG KẾT NỐI</string>
+    <string name="connection_status_label_scanning">ĐANG QUÉT</string>
+    <string name="connection_status_label_disconnected">CHƯA KẾT NỐI</string>
+    <string name="connection_status_label_error">LỖI KẾT NỐI</string>
+    <string name="connection_status_label_need_password">CẦN MẬT KHẨU</string>
+    <string name="connection_status_label_need_wifi">CẤU HÌNH WI-FI</string>
+    <string name="connection_status_label_verifying">ĐANG XÁC THỰC</string>
+    <string name="connection_status_label_no_network">KHÔNG CÓ MẠNG</string>
+    <string name="connection_status_enable_network">Bật mạng</string>
+    <!-- Actions -->
+    <string name="connection_status_disconnect">Ngắt kết nối</string>
+    <string name="connection_status_stop">Dừng</string>
+    <string name="connection_status_rescan">Quét lại</string>
+    <string name="connection_status_open_device_list">Mở danh sách thiết bị</string>
+    <string name="connection_status_enter_password">Nhập mật khẩu</string>
+    <string name="connection_status_config_wifi">Cấu hình Wi-Fi</string>
+
+    <!-- RSSI -->
+    <string name="connection_status_rssi">RSSI: %1$d dBm</string>
+
+    <!-- Network status content descriptions -->
+    <string name="cd_wifi_on">Wi-Fi đang BẬT</string>
+    <string name="cd_wifi_off">Wi-Fi đang TẮT</string>
+    <string name="cd_bluetooth_on">Bluetooth đang BẬT</string>
+    <string name="cd_bluetooth_off">Bluetooth đang TẮT</string>
+
+    <!-- ============================================================ -->
+    <!-- Connection strings — Tiếng Việt                              -->
+    <!-- ============================================================ -->
+    <string name="connection_auto_failed">Không thể tự động kết nối</string>
+    <string name="connection_connecting">Đang kết nối tới %1$s…</string>
+    <string name="connection_connected">Đã kết nối</string>
+    <string name="connection_disconnected">Đã ngắt kết nối</string>
+    <string name="connection_success">Kết nối thành công</string>
+    <string name="connection_failed">Kết nối tới %1$s thất bại</string>
+    <string name="connection_cancelled">Đã hủy</string>
+    <string name="connection_no_server">Chưa có máy chủ nào</string>
+    <string name="connection_select_server">Hãy chọn hoặc thêm máy chủ</string>
+    <string name="connection_not_connected">Chưa kết nối</string>
+    <string name="connection_stable">Kết nối ổn định</string>
+
+    <!-- Password / auth -->
+    <string name="connection_device_requires_password">Thiết bị yêu cầu mật khẩu xác thực!</string>
+    <string name="connection_checking_password">Đang kiểm tra mật khẩu…</string>
+    <string name="connection_auth_success">Xác thực thành công</string>
+    <string name="connection_auth_auto_retry">Đang thử lại mật khẩu đã lưu…</string>
+    <string name="connection_save_password_error">Lưu mật khẩu thất bại</string>
+    <string name="connection_waiting_auth">Đang chờ xác thực…</string>
+
+    <string name="connection_switching_mode">Đang chuyển chế độ kết nối…</string>
+    <string name="connection_switch_then_connect">Đã chuyển mode, đang kết nối lại…</string>
+
+    <!-- Ping -->
+    <string name="connection_ping">Đang kiểm tra kết nối…</string>
+    <string name="connection_ping_failed">Kiểm tra kết nối thất bại</string>
+
+    <!-- Reconnect -->
+    <string name="connection_reconnecting">Đang kết nối lại…</string>
+    <string name="connection_reconnecting_role">Đang thiết lập lại kết nối…</string>
+    <string name="connection_reconnect_failed">Kết nối lại thất bại</string>
+
+    <!-- Switch mode -->
+    <string name="connection_switch_sent">Đã gửi yêu cầu chuyển mode</string>
+    <string name="connection_switch_failed">Chuyển mode thất bại</string>
+    <string name="connection_switch_to_wifi_requesting">Đang yêu cầu chuyển sang Wi-Fi…</string>
+    <string name="connection_switch_to_wifi_sent">Đã gửi yêu cầu chuyển Wi-Fi</string>
+    <string name="connection_switch_to_wifi_failed">Yêu cầu chuyển Wi-Fi thất bại</string>
+    <string name="connection_switch_to_ble_requesting">Đang yêu cầu chuyển sang BLE…</string>
+    <string name="connection_switch_to_ble_sent">Đã gửi yêu cầu chuyển BLE</string>
+    <string name="connection_switch_to_ble_failed">Yêu cầu chuyển BLE thất bại</string>
+    <string name="connection_switch_to_setup_requesting">Đang yêu cầu vào chế độ cứu hộ…</string>
+    <string name="connection_switch_to_setup_sent">Đã vào chế độ cứu hộ — kết nối Wi-Fi \'ESP32S3_HID_Setup\'</string>
+    <string name="connection_switch_to_setup_failed">Yêu cầu vào cứu hộ thất bại</string>
+    <string name="connection_enable_network">Yêu cầu bật mạng</string>
+
+
+    <!-- ============================================================ -->
+    <!-- DEVICE PICKER DIALOG                                          -->
+    <!-- ============================================================ -->
+    <string name="device_picker_title">Chọn thiết bị</string>
+    <string name="device_picker_count">THIẾT BỊ ĐÃ LƯU: %1$d</string>
+    <string name="device_picker_empty">Chưa có thiết bị nào</string>
+    <string name="device_picker_empty_hint">Nhấn "Quản lý Server" để thêm thiết bị</string>
+    <string name="device_picker_connected_tag">ĐANG KẾT NỐI</string>
+    <string name="device_picker_open_server">Quản lý Server</string>
+    <string name="device_picker_close">Đóng</string>
+
+
+    <!-- Smart Rescue Guide Dialog -->
+    <string name="rescue_dialog_title">Cấu hình Wi-Fi qua Web</string>
+    <string name="rescue_not_connected">Chưa kết nối Wi-Fi \'ESP32S3_HID_Setup\'</string>
+    <string name="rescue_step_guide">Bước 1: Bấm \'Kết nối Wi-Fi\' bên dưới\nBước 2: Chọn \'ESP32S3_HID_Setup\'\nBước 3: Quay lại app → Bấm \'Mở Web\'</string>
+    <string name="rescue_connected">✅ Đã kết nối \'ESP32S3_HID_Setup\'</string>
+    <string name="rescue_open_web_hint">Bấm \'Mở Web\' để cấu hình Wi-Fi nhà</string>
+    <string name="rescue_btn_connect_wifi">Kết nối Wi-Fi</string>
+    <string name="rescue_btn_open_web">Mở Web Config</string>
+    <string name="rescue_btn_close">Đóng</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — ADD SERVER                                           -->
+    <!-- ============================================================ -->
+    <string name="dialog_add_server_title">Server mới</string>
+    <string name="dialog_add_server_bt">BT</string>
+    <string name="dialog_add_server_wifi">Wifi</string>
+    <string name="dialog_port_label">Cổng server</string>
+    <string name="dialog_port_error">Phải là số</string>
+    <string name="dialog_name_label">Tên server</string>
+    <string name="dialog_address_label">Địa chỉ IP</string>
+    <string name="dialog_mac_label">Địa chỉ MAC</string>
+    <string name="dialog_uuid_label">UUID (8-4-4-4-12)</string>
+    <string name="dialog_uuid_error">Định dạng UUID không hợp lệ</string>
+    <string name="dialog_password_label">Mật khẩu (Tùy chọn)</string>
+    <string name="dialog_remember_password">Ghi nhớ mật khẩu</string>
+    <string name="dialog_port_invalid">Cổng không hợp lệ!</string>
+    <string name="dialog_name_empty">Vui lòng nhập tên!</string>
+    <string name="dialog_address_empty">Vui lòng nhập địa chỉ!</string>
+    <string name="dialog_uuid_invalid">Định dạng UUID không hợp lệ!</string>
+    <string name="dialog_add_server_confirm">Xác nhận đã thêm máy chủ mới</string>
+    <string name="dialog_button_add">Thêm</string>
+    <string name="dialog_button_cancel">Hủy</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — EDIT SERVER                                          -->
+    <!-- ============================================================ -->
+    <string name="dialog_edit_server_title">Sửa Server</string>
+    <string name="dialog_edit_port_label">Cổng server</string>
+    <string name="dialog_edit_port_error">Cổng phải là số</string>
+    <string name="dialog_edit_name_label">Tên server</string>
+    <string name="dialog_edit_address_label">Địa chỉ IP / MAC</string>
+    <string name="dialog_edit_uuid_label">UUID server</string>
+    <string name="dialog_edit_uuid_error">Định dạng UUID không hợp lệ (8-4-4-4-12)</string>
+    <string name="dialog_edit_password_label">Mật khẩu</string>
+    <string name="dialog_edit_remember_password">Ghi nhớ mật khẩu</string>
+    <string name="dialog_edit_port_invalid">Cổng không hợp lệ!</string>
+    <string name="dialog_edit_name_empty">Tên không được để trống!</string>
+    <string name="dialog_edit_address_empty">Địa chỉ không được để trống!</string>
+    <string name="dialog_edit_uuid_invalid">Một hoặc nhiều chuỗi UUID chỉnh sửa không hợp lệ</string>
+    <string name="dialog_edit_save">Lưu</string>
+    <string name="dialog_edit_cancel">Hủy</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — PORTS                                                -->
+    <!-- ============================================================ -->
+    <string name="dialog_ports_title">Nhập địa chỉ cổng:</string>
+    <string name="dialog_ports_connection_label">Cổng kết nối</string>
+    <string name="dialog_ports_invalid">Vui lòng nhập số hợp lệ cho tất cả cổng.</string>
+    <string name="dialog_ports_save">Lưu</string>
+    <string name="dialog_ports_cancel">Hủy</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — HOTKEY                                               -->
+    <!-- ============================================================ -->
+    <string name="shortkey_top_circle">Vòng tròn trên:</string>
+    <string name="shortkey_key_char">Ký tự phím:</string>
+    <string name="shortkey_label">Phím tắt (VD: CTRL+c, ALT+TAB)</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — PATH                                                 -->
+    <!-- ============================================================ -->
+    <string name="path_name_label">Tên</string>
+    <string name="path_path_label">Đường dẫn</string>
+    <string name="dialog_add_path_title">Thêm mục</string>
+    <string name="dialog_update_path_title">Cập nhật mục</string>
+    <string name="dialog_path_add">Thêm</string>
+    <string name="dialog_path_update">Cập nhật</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — VERIFY PASSWORD                                      -->
+    <!-- ============================================================ -->
+    <string name="dialog_verify_title">🔐 Nhập mật khẩu</string>
+    <string name="dialog_verify_server_label">Server: %s</string>
+    <string name="dialog_verify_password_label">Mật khẩu</string>
+    <string name="dialog_verify_hide_password">Ẩn mật khẩu</string>
+    <string name="dialog_verify_show_password">Hiện mật khẩu</string>
+    <string name="dialog_verify_remember_password">Ghi nhớ mật khẩu</string>
+    <string name="dialog_verify_cancel">Hủy</string>
+    <string name="dialog_verify_confirm">Xác thực</string>
+    <string name="dialog_verify_auto_title">🔐 Tự động xác thực</string>
+    <string name="dialog_verify_auto_message">Đang tự động xác thực...</string>
+    <string name="dialog_verify_auto_retry">Lần thử %d/%d</string>
+    <string name="dialog_verify_auto_retry_infinite">Tự động thử lại lần #%1$d...</string>
+    <string name="dialog_verify_auto_failed_infinite">Tự động xác thực thất bại, vui lòng nhập thủ công.</string>
+    <string name="dialog_verify_auto_failed">❌ Tự động xác thực thất bại. Vui lòng nhập thủ công!</string>
+    <string name="dialog_verify_invalid_password">Sai mật khẩu. Vui lòng thử lại.</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — DEVICE PASSWORD (ESP32 0xF2)                         -->
+    <!-- ============================================================ -->
+    <string name="dialog_pass_device_title">Yêu cầu mật khẩu thiết bị</string>
+    <string name="dialog_pass_device_message">Thiết bị này được bảo vệ. Vui lòng nhập mật khẩu để mở khóa điều khiển HID.</string>
+    <string name="dialog_pass_device_hint">Nhập mật khẩu thiết bị</string>
+    <string name="dialog_pass_device_remember">Ghi nhớ mật khẩu</string>
+    <string name="dialog_pass_device_submit">Xác thực</string>
+    <string name="dialog_pass_device_cancel">Hủy</string>
+    <string name="dialog_pass_device_error_empty">Mật khẩu không được để trống</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — WI-FI CONFIG                                         -->
+    <!-- ============================================================ -->
+    <string name="dialog_wifi_config_title">Cấu hình Wi-Fi</string>
+    <string name="dialog_wifi_config_message">Nhập thông tin mạng Wi-Fi cho thiết bị. Bo mạch sẽ khởi động lại ở chế độ Wi-Fi sau khi lưu.</string>
+    <string name="dialog_wifi_config_ssid_hint">Tên Wi-Fi (SSID)</string>
+    <string name="dialog_wifi_config_pass_hint">Mật khẩu Wi-Fi</string>
+    <string name="dialog_wifi_config_submit">Lưu &amp; Khởi động lại</string>
+    <string name="dialog_wifi_config_cancel">Hủy</string>
+    <string name="dialog_wifi_config_error_ssid_empty">Tên Wi-Fi không được để trống</string>
+    <string name="dialog_wifi_config_note">Lưu ý: Bo mạch sẽ ngắt BLE và chuyển sang chế độ Wi-Fi. Bạn có thể cần kết nối lại sau đó.</string>
+
+    <!-- ============================================================ -->
+    <!-- BLE CONFIG DIALOG                                             -->
+    <!-- ============================================================ -->
+    <string name="ble_config_title">Cấu hình Bluetooth</string>
+    <string name="device_name_hint">Tên BLE mà ESP32 phát quảng bá (VD: ESP32S3_HID_REMOTE)</string>
+    <string name="service_uuid_hint">UUID dịch vụ BLE của ESP32</string>
+    <string name="write_char_uuid_hint">UUID đặc tính để ghi dữ liệu</string>
+    <string name="dialog_save">Lưu</string>
+    <string name="dialog_cancel">Hủy</string>
+    <string name="reset_to_default">Đặt lại mặc định</string>
+
+    <!-- ============================================================ -->
+    <!-- SERVER LIST CONTROL SCREEN                                    -->
+    <!-- ============================================================ -->
+    <string name="server_title">Cài đặt Server</string>
+    <string name="server_saved_title">SERVER ĐÃ LƯU: %d</string>
+    <string name="server_click_to_add">Nhấn vào server bên dưới để thêm và kết nối.</string>
+    <string name="server_edit_port">Sửa cổng</string>
+    <string name="server_remove">Xóa Server</string>
+    <string name="server_found_title">SERVER ĐÃ TÌM THẤY:</string>
+    <string name="server_enable_wifi_bluetooth">Vui lòng bật Wi-Fi hoặc Bluetooth</string>
+    <string name="server_set_ports_scanner">Đặt cổng quét:</string>
+    <string name="server_manual_add">Thêm server thủ công:</string>
+    <string name="server_confirm_delete_title">Xác nhận xóa</string>
+    <string name="server_confirm_delete_message">Bạn có chắc muốn xóa server %s không?</string>
+    <!-- ============================================================ -->
+    <!-- SERVER LIST CONTROL SCREEN                                    -->
+    <!-- ============================================================ -->
+    <string name="server_scan_ble">Quét Bluetooth</string>
+    <string name="server_scan_ble_stop">Dừng BLE</string>
+    <string name="server_scan_wifi">Quét Wi-Fi</string>
+    <string name="server_scan_wifi_stop">Dừng WiFi</string>
+
+    <string name="server_scanning_both">Đang quét BLE + Wi-Fi…</string>
+    <string name="server_scanning_ble">Đang quét Bluetooth…</string>
+    <string name="server_scanning_wifi">Đang quét Wi-Fi…</string>
+
+    <string name="server_found_empty_hint">Chưa tìm thấy thiết bị. Nhấn nút quét để bắt đầu.</string>
+
+    <!-- Rescue Server -->
+    <string name="server_rescue_title">Chuyển sang Wi-Fi</string>
+    <string name="server_rescue_badge">CỨU HỘ</string>
+    <string name="server_rescue_description">Chưa cấu hình Wi-Fi. Nhấn để bo mạch chuyển sang Wi-Fi.</string>
+    <string name="server_rescue_dialog_message">Bo mạch sẽ tắt Bluetooth và chuyển sang Wi-Fi. Nếu chưa cấu hình Wi-Fi, bo mạch sẽ tự động quay về Bluetooth. Bạn có muốn tiếp tục?</string>
+    <string name="server_rescue_confirm">Đồng ý</string>
+    <string name="server_rescue_cancel">Hủy</string>
+
+    <!-- Badges -->
+    <string name="server_badge_ble">BLE</string>
+    <string name="server_badge_wifi">WiFi</string>
+
+    <!-- Default name -->
+    <string name="server_unknown_name">Không rõ</string>
+
+    <string name="server_request_switch_mode_ble">Yêu cầu chuyển sang BLE</string>
+    <string name="server_request_switch_mode_wifi">Yêu cầu chuyển sang Wi-Fi</string>
+    <string name="server_request_switch_mode_rescue">Yêu cầu cứu hộ Wi-Fi</string>
+
+    <!-- No Server -->
+    <string name="no_server_title">Không tìm thấy Server</string>
+    <string name="no_server_message">Vui lòng thêm server để bắt đầu sử dụng ứng dụng</string>
+    <string name="no_server_button">Thêm Server</string>
+
+    <!-- ============================================================ -->
+    <!-- SHORTCUT SCREEN                                               -->
+    <!-- ============================================================ -->
+    <string name="shortkey_title_add">Thêm phím tắt</string>
+    <string name="shortkey_back">Quay lại</string>
+    <string name="shortkey_saved_success">Đã lưu phím tắt</string>
+    <string name="shortkey_name_empty">Tên phím tắt không được để trống</string>
+    <string name="shortkey_name_label">Tên phím tắt</string>
+    <string name="shortkey_name_placeholder">VD: Lưu tất cả</string>
+    <string name="shortkey_save">Lưu</string>
+    <string name="shortkey_combination_count">Tổ hợp (%1$d phím)</string>
+    <string name="shortkey_clear_all">Xóa tất cả</string>
+    <string name="shortkey_remove_key">Xóa phím</string>
+    <string name="shortkey_search_hint">Tìm phím…</string>
+    <string name="shortkey_search_clear">Xóa tìm kiếm</string>
+    <string name="shortkey_no_keys_found">Không tìm thấy phím nào</string>
+
+    <string name="power_shortkey_title">Không có phím tắt nguồn</string>
+    <string name="power_confirm_title">Máy tính %s</string>
+    <string name="power_confirm_message">Bạn có chắc muốn %s không?</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — GENERAL                                         -->
+    <!-- ============================================================ -->
+    <string name="quickkey_title_add">Thêm phím tắt</string>
+    <string name="quickkey_title_edit">Sửa phím tắt</string>
+    <string name="quickkey_back">Quay lại</string>
+    <string name="quickkey_save">Lưu</string>
+    <string name="quickkey_create">Tạo mới</string>
+    <string name="quickkey_edit">Sửa</string>
+    <string name="quickkey_remove">Xóa</string>
+    <string name="quickkey_empty">Chưa có phím tắt</string>
+    <string name="quickkey_saved_success">Đã lưu phím tắt</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — NAME                                            -->
+    <!-- ============================================================ -->
+    <string name="quickkey_name_label">Tên</string>
+    <string name="quickkey_name_placeholder">Nhập tên phím tắt</string>
+    <string name="quickkey_name_empty">Vui lòng nhập tên</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — SEARCH                                          -->
+    <!-- ============================================================ -->
+    <string name="quickkey_search_hint">Tìm phím…</string>
+    <string name="quickkey_search_clear">Xóa tìm kiếm</string>
+    <string name="quickkey_no_keys_found">Không có phím nào</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — COMBINATION PREVIEW                             -->
+    <!-- ============================================================ -->
+    <string name="quickkey_combination_count">Tổ hợp (%1$d)</string>
+    <string name="quickkey_clear_all">Xóa tất cả</string>
+    <string name="quickkey_remove_key">Xóa phím</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — PRESET                                          -->
+    <!-- ============================================================ -->
+    <string name="quickkey_preset_all">Tất cả</string>
+    <string name="quickkey_preset_choose">Chọn phần mềm</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — TYPE                                            -->
+    <!-- ============================================================ -->
+    <string name="quickkey_type_label">Loại</string>
+    <string name="quickkey_type_shortcut">Phím tắt</string>
+    <string name="quickkey_type_launch">Khởi chạy</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — LAUNCH SECTION                                  -->
+    <!-- ============================================================ -->
+    <string name="quickkey_launch_section">Khởi chạy phần mềm</string>
+
+    <string name="quickkey_preset_add_new">Thêm phần mềm mới…</string>
+    <string name="quickkey_preset_name_placeholder">Tên phần mềm</string>
+    <string name="quickkey_preset_add_confirm">Xác nhận</string>
+    <string name="quickkey_preset_add_cancel">Hủy</string>
+
+    <!-- ============================================================ -->
+    <!-- WEIGHT SHORTCUT — MAIN                                        -->
+    <!-- ============================================================ -->
+    <string name="shortkey_empty">Phím tắt trống!</string>
+    <string name="shortkey_create">Tạo phím tắt</string>
+    <string name="shortkey_remove">Xóa phím tắt</string>
+    <string name="shortkey_keyboard">Bàn phím</string>
+
+    <!-- ============================================================ -->
+    <!-- SHORTCUT TYPE NAMES                                          -->
+    <!-- ============================================================ -->
+    <string name="shortkey_type_media_default">Media mặc định</string>
+    <string name="shortkey_type_youtube">YouTube</string>
+    <string name="shortkey_type_dailymotion">Dailymotion</string>
+    <string name="shortkey_type_video_player">Video</string>
+    <string name="shortkey_type_music_player">Nhạc</string>
+
+    <!-- CAPTIONS -->
+    <string name="media_shortkey_captions">Phụ đề</string>
+
+    <!-- ============================================================ -->
+    <!-- WEIGHT COMMAND KEYS KEYBOARD                                  -->
+    <!-- ============================================================ -->
+    <string name="command_keys_search_hint">Tìm phím…</string>
+    <string name="command_keys_search_clear">Xóa tìm kiếm</string>
+    <string name="command_keys_close">Đóng</string>
+    <string name="command_keys_selected_count">Tổ hợp đã chọn (%1$d):</string>
+    <string name="command_keys_clear_all">Xóa tất cả</string>
+    <string name="command_keys_remove_key">Xóa phím</string>
+    <string name="command_keys_backspace">Xóa lùi</string>
+    <string name="command_keys_send_with_keys">Gửi: %1$s</string>
+    <string name="command_keys_pick_more">Chọn thêm phím…</string>
+    <string name="command_keys_sent">Đã gửi: %1$s</string>
+    <string name="command_keys_invalid">Tổ hợp không hợp lệ</string>
+
+    <!-- Key Groups -->
+    <string name="key_group_modifiers">Phím bổ trợ</string>
+    <string name="key_group_letters">Chữ cái</string>
+    <string name="key_group_digits">Chữ số</string>
+    <string name="key_group_symbols">Ký hiệu</string>
+    <string name="key_group_function">Chức năng</string>
+    <string name="key_group_navigation">Điều hướng</string>
+    <string name="key_group_control">Điều khiển</string>
+
+    <!-- ============================================================ -->
+    <!-- BOTTOM NAVIGATION                                             -->
+    <!-- ============================================================ -->
+    <string name="bottom_nav_menu">Menu</string>
+    <string name="bottom_nav_shortcut">Phím tắt</string>
+    <string name="bottom_nav_keyboard">Bàn phím</string>
+    <string name="bottom_nav_media">Media</string>
+    <string name="bottom_nav_browser">Trình duyệt</string>
+    <string name="bottom_nav_power">Nguồn</string>
+
+    <!-- ============================================================ -->
+    <!-- ICON PICKER                                                   -->
+    <!-- ============================================================ -->
+    <string name="icon_picker_dropdown_loading_icons">Đang tải biểu tượng…</string>
+    <string name="shortkey_setup_title">Thiết lập phím nhanh</string>
+    <string name="shortkey_setup_select_option">Tùy chọn</string>
+    <string name="shortkey_setup_edit">Chỉnh sửa</string>
+    <string name="shortkey_setup_remove">Xóa</string>
+    <string name="os_ubuntu">Ubuntu</string>
+
+    <string name="command_keys_mode_combo">Tổ hợp</string>
+    <string name="command_keys_mode_instant">Gửi ngay</string>
+    <string name="command_keys_instant_hint">Chạm phím để gửi ngay. Modifier (Ctrl/Shift/Alt/Win) sẽ được giữ (latch) cho đến khi chạm lại.</string>
+
+    <string name="reset_key_title">Reset phím?</string>
+    <string name="reset_key_message">Nhả toàn bộ phím đang giữ (Shift, Ctrl, Alt, Win). Dùng khi bạn thấy phím bị treo.</string>
+    <string name="reset_key_confirm">Reset</string>
+    <string name="reset_key_cancel">Huỷ</string>
+    <string name="reset_key_content_desc">Reset phím bị treo</string>
+
+</resources>

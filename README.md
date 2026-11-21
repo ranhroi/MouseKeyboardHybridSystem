@@ -1,16 +1,54 @@
+# Mô hình Kết nối Hệ thống (Hybrid Mouse & Keyboard Control)
 
-## 🏗️ Kiến trúc hệ thống
-
-**App Android (`MousseKeyboardHybridSystem`)** đóng vai trò là trung tâm điều khiển chính. Người dùng có thể tùy chọn kết nối trực tiếp tới **Bo mạch ESP32-S3** (hoạt động như thiết bị phần cứng cắm ngoài qua USB) hoặc kết nối thẳng tới **Phần mềm Server trên PC** (không cần phần cứng) với định dạng gói tin điều khiển tương đương nhau:
+Sơ đồ dưới đây mô tả luồng giao tiếp hai chiều giữa **Ứng dụng Android** với **Bo mạch ESP32-S3** và **App Server trên Máy tính** qua hai kênh **Bluetooth (BLE)** và **Wi-Fi (TCP)**.
 
 ```text
-                                 ┌──(Wi-Fi / BLE)──► [ 🔌 ESP32-S3 HID ] ──(USB HID)──► [ 💻 PC (Không cần cài app) ]
-                                 │
-[ 📱 App Android (Trung tâm) ] ──┤  (Người dùng tùy chọn 1 trong 2 chế độ kết nối)
-                                 │
-                                 └──(Wi-Fi / LAN)──► [ 🖥️ HybridMouseControlServer ] ──► [ 💻 PC (Cài phần mềm) ]
+                                 +-----------------------+
+
+                                 |   ỨNG DỤNG ANDROID    |
+                                 |    (Hybrid Remote)    |
+                                 +-----------+-----------+
+                                             |
+                      +----------------------+----------------------+
+
+                      | (Gửi lệnh điều khiển & Nhận trạng thái LED) |
+                      v                                             v
+        +---------------------------+                 +---------------------------+
+
+        |       BLUETOOTH BLE       |                 |       WI-FI NỘI BỘ        |
+        |   (GATT Write / Notify)   |                 |       (TCP Socket)        |
+        +-------------+-------------+                 +-------------+-------------+
+
+                      |                                             |
+          +-----------+-----------+                     +-----------+-----------+
+
+          | (Không dây)           | (Không dây)         | (Qua Router)          | (Qua Router)
+          v                       v                     v                       v
++-------------------+   +-------------------+ +-------------------+   +-------------------+
+
+| BO MẠCH ESP32-S3  |   |  APP PC SERVER    | | BO MẠCH ESP32-S3  |   |  APP PC SERVER    |
+|  (Cắm cổng USB)   |   | (Win / Mac / Lin) | |  (Cắm cổng USB)   |   | (Win / Mac / Lin) |
++---------+---------+   +---------+---------+ +---------+---------+   +---------+---------+
+
+          |                       |                     |                       |
+          | USB HID               | System API          | USB HID               | System API
+          | (Phần cứng)           | (SendInput)         | (Phần cứng)           | (SendInput)
+          +-----------+-----------+                     +-----------+-----------+
+
+                      |                                             |
+                      v                                             v
+              +---------------+                             +---------------+
+
+              |   MÁY TÍNH    |                             |   MÁY TÍNH    |
+              | (PC / Laptop) |                             | (PC / Laptop) |
+              +---------------+                             +---------------+
 ```
 
-### 🔄 Hai chế độ hoạt động linh hoạt
-1. **Chế độ Phần cứng (Qua ESP32-S3):** App Android gửi lệnh qua Wi-Fi/BLE tới bo mạch ESP32-S3. Bo mạch giả lập chuột/bàn phím vật lý (USB HID) cắm vào máy tính (hoạt động cả trong BIOS, màn hình khóa hoặc máy tính không cho cài phần mềm lạ).
-2. **Chế độ Phần mềm (Qua Windows Server):** App Android gửi trực tiếp gói tin tương tự qua mạng LAN/Wi-Fi tới phần mềm `HybridMouseControlServer` cài sẵn trên PC để điều khiển chuột/bàn phím (không cần mang theo bo mạch).
+## Tóm tắt luồng hoạt động
+
+* **Chế độ Phần cứng (qua Bo mạch ESP32-S3):** 
+  * Ứng dụng Android gửi gói tin qua **Bluetooth BLE** hoặc **Wi-Fi TCP** tới ESP32-S3.
+  * Bo mạch xuất tín hiệu **USB HID vật lý** trực tiếp vào máy tính (hoạt động cả trong BIOS, màn hình khóa `Win + L`) và đẩy ngược trạng thái 3 đèn LED (`Caps Lock`, `Num Lock`, `Scroll Lock`) về điện thoại.
+* **Chế độ Phần mềm (qua App PC Server):** 
+  * Ứng dụng Android kết nối trực tiếp tới phần mềm chạy nền trên máy tính qua **Bluetooth BLE** hoặc **Wi-Fi TCP**.
+  * Phần mềm dùng API hệ điều hành (`SendInput` trên Windows) để điều khiển chuột, bàn phím, gõ ký tự Unicode/Emoji và đồng bộ đèn LED theo thời gian thực.

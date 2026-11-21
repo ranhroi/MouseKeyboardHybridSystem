@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ============================================================ -->
+    <!-- APP                                                           -->
+    <!-- ============================================================ -->
+    <string name="app_name">Hybrid Mouse Control</string>
+    <string name="string_empty"> </string>
+
+    <!-- ============================================================ -->
+    <!-- ONBOARDING                                                    -->
+    <!-- ============================================================ -->
+    <string name="onboarding_title_hardware">1. Connect Hardware</string>
+    <string name="onboarding_desc_hardware">Plug your ESP32 device into a USB port on your computer (PC/Laptop) to power it up and activate discovery mode.</string>
+    <string name="onboarding_title_welcome">2. Setup Complete</string>
+    <string name="onboarding_desc_welcome">Welcome aboard! The app is now ready to transform into a smart remote controller for your computer.</string>
+    <string name="onboarding_title_bluetooth">3. Connect Bluetooth</string>
+    <string name="onboarding_desc_bluetooth">Turn on Bluetooth on your phone, then scan and connect to your ESP32 HID device to initiate wireless pairing.</string>
+    <string name="onboarding_title_ready">4. Ready to Control</string>
+    <string name="onboarding_desc_ready">You are all set! Now you can easily navigate with the virtual mouse, type on the keyboard, or trigger complex hotkeys in a single tap.</string>
+
+    <string name="onboarding_button_next">Next</string>
+    <string name="onboarding_button_skip">Skip</string>
+    <string name="onboarding_button_back">Back</string>
+    <string name="onboarding_button_get_started">Get Started</string>
+
+    <!-- ============================================================ -->
+    <!-- DRAWER                                                        -->
+    <!-- ============================================================ -->
+    <string name="drawer_servers_manager">Servers Manager</string>
+    <string name="drawer_shortkey_manager">Shortcut Manager</string>
+    <string name="drawer_quick_key_manager">Add Quick key</string>
+    <string name="drawer_help_install">Help install App</string>
+    <string name="drawer_settings_app">Settings App</string>
+    <string name="drawer_close">Close Drawer</string>
+    <string name="drawer_nothing">Nothing</string>
+    <string name="drawer_device_type">Device type</string>
+
+    <!-- ============================================================ -->
+    <!-- SETTINGS SCREEN                                               -->
+    <!-- ============================================================ -->
+    <string name="settings_title">Settings</string>
+    <string name="save_settings">Save settings</string>
+    <string name="saved">Saved!</string>
+
+    <!-- Language -->
+    <string name="language_select">Select language</string>
+    <string name="language_auto">Auto (System default)</string>
+    <string name="language_vietnamese">Vietnamese</string>
+    <string name="language_english">English</string>
+    <string name="language_japanese">Japanese</string>
+    <string name="language_korean">Korean</string>
+    <string name="language_french">French</string>
+    <string name="language_current_auto">🔄 Using: %s</string>
+    <string name="language_current_selected">✅ Selected: %s</string>
+
+    <!-- Instructions -->
+    <string name="instruction_language">0. Language</string>
+    <string name="instruction_cursor">1. Cursor speed &amp; scroll settings</string>
+    <string name="instruction_mouse">2. Enable natural scroll\nReverse left/right mouse buttons</string>
+    <string name="instruction_ui">3. Enable UI weight display</string>
+    <string name="instruction_service">4. Enable background service</string>
+    <string name="instruction_os">Computer Operating System</string>
+    <string name="instruction_icon_cache">Manage icon cache</string>
+    <string name="instruction_connection">Device Connection</string>
+    <string name="instruction_reset_shortcut">Reset Shortcut Keys</string>
+
+    <!-- Cursor / Mouse -->
+    <string name="cursor_speed">Cursor speed: %d%%</string>
+    <string name="scroll_speed">Scroll speed: %d%%</string>
+    <string name="pressed_speed">Pressed speed: %d%%</string>
+    <string name="delay_text">Delay Text: %dL</string>
+    <string name="mouse_left_hand">Left-handed mouse</string>
+    <string name="mouse_natural_scroll">Natural scroll</string>
+
+    <!-- OS Select -->
+    <string name="os_select_hint">Select your PC\'s OS to use the correct shortcuts</string>
+    <string name="os_current">Current: %1$s</string>
+    <string name="os_windows">Windows</string>
+    <string name="os_mac">macOS</string>
+    <string name="os_linux">Linux</string>
+
+    <!-- UI Options -->
+    <string name="ui_show_floating">Show Floatings</string>
+    <string name="ui_show_button_text">Show Button Text &amp; Icon</string>
+    <string name="ui_show_rotation">Show Drawer right weight</string>
+    <string name="auto_ping">Auto Ping/Pong</string>
+
+    <!-- Icon Cache -->
+    <string name="icon_cache_reset">Reset icon cache</string>
+    <string name="icon_cache_reset_success">Icon cache cleared</string>
+
+    <!-- Device Connection Config -->
+    <string name="device_name">Device Name</string>
+    <string name="device_name_required">Device name cannot be empty</string>
+    <string name="service_uuid">Service UUID</string>
+    <string name="write_char_uuid">Write Characteristic UUID</string>
+    <string name="notify_char_uuid">Notify Characteristic UUID</string>
+    <string name="notify_char_uuid_hint">Notify characteristic uuid hint</string>
+    <string name="uuid_invalid">Invalid UUID (format: 8-4-4-4-12)</string>
+
+    <!-- Validation Errors -->
+    <string name="error_device_name_empty">Device name cannot be empty</string>
+    <string name="error_uuid_empty">UUID cannot be empty</string>
+    <string name="error_uuid_invalid">Invalid UUID (8-4-4-4-12)</string>
+
+    <!-- Reset Shortcuts -->
+    <string name="reset_system_shortcuts">Reset System Shortcuts</string>
+    <string name="reset_shortkey_success">Shortcuts reset successfully</string>
+    <string name="reset_system_quick_key">Reset System Quick keys</string>
+    <string name="reset_quick_key_success">Quick keys reset successfully</string>
+
+    <!-- ============================================================ -->
+    <!-- CONNECTION STATUS BAR                                         -->
+    <!-- ============================================================ -->
+    <!-- Status labels -->
+    <string name="connection_status_label_connected">CONNECTED</string>
+    <string name="connection_status_label_connecting">CONNECTING</string>
+    <string name="connection_status_label_scanning">SCANNING</string>
+    <string name="connection_status_label_disconnected">DISCONNECTED</string>
+    <string name="connection_status_label_error">ERROR</string>
+    <string name="connection_status_label_need_password">PASSWORD REQUIRED</string>
+    <string name="connection_status_label_need_wifi">WI-FI CONFIG</string>
+    <string name="connection_status_label_verifying">VERIFYING</string>
+    <string name="connection_status_label_no_network">NO NETWORK</string>
+    <string name="connection_status_enable_network">Enable Network</string>
+    <!-- Actions -->
+    <string name="connection_status_disconnect">Disconnect</string>
+    <string name="connection_status_stop">Stop</string>
+    <string name="connection_status_rescan">Rescan</string>
+    <string name="connection_status_open_device_list">Open device list</string>
+    <string name="connection_status_enter_password">Enter Password</string>
+    <string name="connection_status_config_wifi">Config Wi-Fi</string>
+
+    <!-- RSSI -->
+    <string name="connection_status_rssi">RSSI: %1$d dBm</string>
+
+    <!-- Network status content descriptions -->
+    <string name="cd_wifi_on">Wi-Fi is ON</string>
+    <string name="cd_wifi_off">Wi-Fi is OFF</string>
+    <string name="cd_bluetooth_on">Bluetooth is ON</string>
+    <string name="cd_bluetooth_off">Bluetooth is OFF</string>
+
+    <!-- ============================================================ -->
+    <!-- Connection strings — English                                 -->
+    <!-- ============================================================ -->
+    <string name="connection_auto_failed">Auto-connect failed</string>
+    <string name="connection_connecting">Connecting to %1$s…</string>
+    <string name="connection_connected">Connected</string>
+    <string name="connection_disconnected">Disconnected</string>
+    <string name="connection_success">Connection successful</string>
+    <string name="connection_failed">Connection to %1$s failed</string>
+    <string name="connection_cancelled">Cancelled</string>
+    <string name="connection_no_server">No servers yet</string>
+    <string name="connection_select_server">Please select or add a server</string>
+    <string name="connection_not_connected">Not connected</string>
+    <string name="connection_stable">Connection stable</string>
+
+    <!-- Password / auth -->
+    <string name="connection_device_requires_password">Device requires authentication password!</string>
+    <string name="connection_checking_password">Checking password…</string>
+    <string name="connection_auth_success">Authentication successful</string>
+    <string name="connection_auth_auto_retry">Retrying saved password…</string>
+    <string name="connection_save_password_error">Failed to save password</string>
+    <string name="connection_waiting_auth">Waiting for authentication…</string>
+
+    <string name="connection_switching_mode">Switching connection mode…</string>
+    <string name="connection_switch_then_connect">Mode switched, reconnecting…</string>
+    <!-- Ping -->
+    <string name="connection_ping">Checking connection…</string>
+    <string name="connection_ping_failed">Connection check failed</string>
+
+    <!-- Reconnect -->
+    <string name="connection_reconnecting">Reconnecting…</string>
+    <string name="connection_reconnecting_role">Re-establishing connection…</string>
+    <string name="connection_reconnect_failed">Reconnect failed</string>
+
+    <!-- Switch mode -->
+    <string name="connection_switch_sent">Mode switch request sent</string>
+    <string name="connection_switch_failed">Mode switch failed</string>
+    <string name="connection_switch_to_wifi_requesting">Requesting switch to Wi-Fi…</string>
+    <string name="connection_switch_to_wifi_sent">Wi-Fi switch request sent</string>
+    <string name="connection_switch_to_wifi_failed">Wi-Fi switch request failed</string>
+    <string name="connection_switch_to_ble_requesting">Requesting switch to BLE…</string>
+    <string name="connection_switch_to_ble_sent">BLE switch request sent</string>
+    <string name="connection_switch_to_ble_failed">BLE switch request failed</string>
+    <string name="connection_switch_to_setup_requesting">Requesting rescue mode…</string>
+    <string name="connection_switch_to_setup_sent">Rescue mode activated — connect to Wi-Fi \'ESP32S3_HID_Setup\'</string>
+    <string name="connection_switch_to_setup_failed">Rescue mode request failed</string>
+    <string name="connection_enable_network"> Enable Network</string>
+
+    <!-- ============================================================ -->
+    <!-- DEVICE PICKER DIALOG                                          -->
+    <!-- ============================================================ -->
+    <string name="device_picker_title">Select Device</string>
+    <string name="device_picker_count">SAVED DEVICES: %1$d</string>
+    <string name="device_picker_empty">No devices saved</string>
+    <string name="device_picker_empty_hint">Tap "Manage Servers" to add a device</string>
+    <string name="device_picker_connected_tag">CONNECTED</string>
+    <string name="device_picker_open_server">Manage Servers</string>
+    <string name="device_picker_close">Close</string>
+
+
+    <!-- Smart Rescue Guide Dialog -->
+    <string name="rescue_dialog_title">Wi-Fi Configuration via Web</string>
+    <string name="rescue_not_connected">Not connected to Wi-Fi \'ESP32S3_HID_Setup\'</string>
+    <string name="rescue_step_guide">Step 1: Tap \'Connect Wi-Fi\' below\nStep 2: Select \'ESP32S3_HID_Setup\'\nStep 3: Return to app → Tap \'Open Web\'</string>
+    <string name="rescue_connected">✅ Connected to \'ESP32S3_HID_Setup\'</string>
+    <string name="rescue_open_web_hint">Tap \'Open Web\' to configure your home Wi-Fi</string>
+    <string name="rescue_btn_connect_wifi">Connect Wi-Fi</string>
+    <string name="rescue_btn_open_web">Open Web Config</string>
+    <string name="rescue_btn_close">Close</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — ADD SERVER                                           -->
+    <!-- ============================================================ -->
+    <string name="dialog_add_server_title">New Server</string>
+    <string name="dialog_add_server_bt">BT</string>
+    <string name="dialog_add_server_wifi">Wifi</string>
+    <string name="dialog_port_label">Server port</string>
+    <string name="dialog_port_error">Must be a number</string>
+    <string name="dialog_name_label">Server name</string>
+    <string name="dialog_address_label">IP Address</string>
+    <string name="dialog_mac_label">MAC Address</string>
+    <string name="dialog_uuid_label">UUID (8-4-4-4-12)</string>
+    <string name="dialog_uuid_error">Invalid UUID format</string>
+    <string name="dialog_password_label">Password (Optional)</string>
+    <string name="dialog_remember_password">Remember password</string>
+    <string name="dialog_port_invalid">Invalid port!</string>
+    <string name="dialog_name_empty">Please enter a name!</string>
+    <string name="dialog_address_empty">Please enter an address!</string>
+    <string name="dialog_uuid_invalid">Invalid UUID format!</string>
+    <string name="dialog_add_server_confirm">Add Server Confirm</string>
+    <string name="dialog_button_add">Add</string>
+    <string name="dialog_button_cancel">Cancel</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — EDIT SERVER                                          -->
+    <!-- ============================================================ -->
+    <string name="dialog_edit_server_title">Edit Server</string>
+    <string name="dialog_edit_port_label">Server port</string>
+    <string name="dialog_edit_port_error">Port must be a number</string>
+    <string name="dialog_edit_name_label">Server name</string>
+    <string name="dialog_edit_address_label">IP Address / Mac</string>
+    <string name="dialog_edit_uuid_label">Server UUID</string>
+    <string name="dialog_edit_uuid_error">Invalid UUID format (8-4-4-4-12)</string>
+    <string name="dialog_edit_password_label">Password</string>
+    <string name="dialog_edit_remember_password">Remember password</string>
+    <string name="dialog_edit_port_invalid">Invalid port!</string>
+    <string name="dialog_edit_name_empty">Name cannot be empty!</string>
+    <string name="dialog_edit_address_empty">Address cannot be empty!</string>
+    <string name="dialog_edit_uuid_invalid">One or more edited UUID strings are invalid</string>
+    <string name="dialog_edit_save">Save</string>
+    <string name="dialog_edit_cancel">Cancel</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — PORTS                                                -->
+    <!-- ============================================================ -->
+    <string name="dialog_ports_title">Enter AddressPorts:</string>
+    <string name="dialog_ports_connection_label">Port Connection</string>
+    <string name="dialog_ports_invalid">Please enter valid numbers for all ports.</string>
+    <string name="dialog_ports_save">Save</string>
+    <string name="dialog_ports_cancel">Cancel</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — HOTKEY                                               -->
+    <!-- ============================================================ -->
+    <string name="shortkey_top_circle">Top circle:</string>
+    <string name="shortkey_key_char">Key char:</string>
+    <string name="shortkey_label">ShortKeys (e.g.: CTRL+c, ALT+TAB)</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — PATH                                                 -->
+    <!-- ============================================================ -->
+    <string name="path_name_label">Name</string>
+    <string name="path_path_label">Path</string>
+    <string name="dialog_add_path_title">Add Item</string>
+    <string name="dialog_update_path_title">Update Item</string>
+    <string name="dialog_path_add">Add</string>
+    <string name="dialog_path_update">Update</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — VERIFY PASSWORD                                      -->
+    <!-- ============================================================ -->
+    <string name="dialog_verify_title">🔐 Enter password</string>
+    <string name="dialog_verify_server_label">Server: %s</string>
+    <string name="dialog_verify_password_label">Password</string>
+    <string name="dialog_verify_hide_password">Hide password</string>
+    <string name="dialog_verify_show_password">Show password</string>
+    <string name="dialog_verify_remember_password">Remember password</string>
+    <string name="dialog_verify_cancel">Cancel</string>
+    <string name="dialog_verify_confirm">Authenticate</string>
+    <string name="dialog_verify_auto_title">🔐 Auto Authentication</string>
+    <string name="dialog_verify_auto_message">Authenticating automatically...</string>
+    <string name="dialog_verify_auto_retry">Attempt %d/%d</string>
+    <string name="dialog_verify_auto_retry_infinite">Auto retry attempt #%1$d...</string>
+    <string name="dialog_verify_auto_failed_infinite">Auto-authentication failed, please enter manually.</string>
+    <string name="dialog_verify_auto_failed">❌ Auto authentication failed. Please enter manually!</string>
+    <string name="dialog_verify_invalid_password">Invalid password. Please try again.</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — DEVICE PASSWORD (ESP32 0xF2)                         -->
+    <!-- ============================================================ -->
+    <string name="dialog_pass_device_title">Device Password Required</string>
+    <string name="dialog_pass_device_message">This device is protected. Please enter the password to unlock HID control.</string>
+    <string name="dialog_pass_device_hint">Enter device password</string>
+    <string name="dialog_pass_device_remember">Remember password</string>
+    <string name="dialog_pass_device_submit">Verify</string>
+    <string name="dialog_pass_device_cancel">Cancel</string>
+    <string name="dialog_pass_device_error_empty">Password cannot be empty</string>
+
+    <!-- ============================================================ -->
+    <!-- DIALOG — WI-FI CONFIG                                         -->
+    <!-- ============================================================ -->
+    <string name="dialog_wifi_config_title">Configure Wi-Fi</string>
+    <string name="dialog_wifi_config_message">Enter the Wi-Fi network information for the device. The board will restart in Wi-Fi mode after saving.</string>
+    <string name="dialog_wifi_config_ssid_hint">Wi-Fi name (SSID)</string>
+    <string name="dialog_wifi_config_pass_hint">Wi-Fi password</string>
+    <string name="dialog_wifi_config_submit">Save &amp; Restart</string>
+    <string name="dialog_wifi_config_cancel">Cancel</string>
+    <string name="dialog_wifi_config_error_ssid_empty">Wi-Fi name cannot be empty</string>
+    <string name="dialog_wifi_config_note">Note: The board will disconnect BLE and switch to Wi-Fi mode. You may need to reconnect afterward.</string>
+
+    <!-- ============================================================ -->
+    <!-- BLE CONFIG DIALOG                                             -->
+    <!-- ============================================================ -->
+    <string name="ble_config_title">Bluetooth Configuration</string>
+    <string name="device_name_hint">BLE name ESP32 broadcasts (e.g., ESP32S3_HID_REMOTE)</string>
+    <string name="service_uuid_hint">BLE service UUID of ESP32</string>
+    <string name="write_char_uuid_hint">UUID characteristic for writing data</string>
+    <string name="dialog_save">Save</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="reset_to_default">Reset to Default</string>
+
+    <!-- ============================================================ -->
+    <!-- SERVER LIST CONTROL SCREEN                                    -->
+    <!-- ============================================================ -->
+    <string name="server_title">Server setup</string>
+    <string name="server_saved_title">SAVED SERVERS: %d</string>
+    <string name="server_click_to_add">Click a server below to add it and connect.</string>
+    <string name="server_edit_port">Edit port</string>
+    <string name="server_remove">Remove Server</string>
+    <string name="server_found_title">FOUND SERVERS:</string>
+    <string name="server_enable_wifi_bluetooth">Please enable Wi-Fi or Bluetooth</string>
+    <string name="server_set_ports_scanner">Set ports Scanner:</string>
+    <string name="server_manual_add">Manually add a server:</string>
+    <string name="server_confirm_delete_title">Confirm Delete</string>
+    <string name="server_confirm_delete_message">Are you sure you want to delete server %s?</string>
+    <!-- ============================================================ -->
+    <!-- SERVER LIST CONTROL SCREEN                                    -->
+    <!-- ============================================================ -->
+    <string name="server_scan_ble">Scan Bluetooth</string>
+    <string name="server_scan_ble_stop">Stop BLE</string>
+    <string name="server_scan_wifi">Scan Wi-Fi</string>
+    <string name="server_scan_wifi_stop">Stop WiFi</string>
+
+    <string name="server_scanning_both">Scanning BLE + Wi-Fi…</string>
+    <string name="server_scanning_ble">Scanning Bluetooth…</string>
+    <string name="server_scanning_wifi">Scanning Wi-Fi…</string>
+
+    <string name="server_found_empty_hint">No devices found. Tap a scan button to start.</string>
+
+    <!-- Rescue Server -->
+    <string name="server_rescue_title">Switch to Wi-Fi</string>
+    <string name="server_rescue_badge">RESCUE</string>
+    <string name="server_rescue_description">Wi-Fi not configured. Tap to make the board switch to Wi-Fi.</string>
+    <string name="server_rescue_dialog_message">The board will turn off Bluetooth and switch to Wi-Fi. If Wi-Fi hasn\'t been configured, the board will automatically return to Bluetooth. Do you want to continue?</string>
+    <string name="server_rescue_confirm">Agree</string>
+    <string name="server_rescue_cancel">Cancel</string>
+
+    <!-- Badges -->
+    <string name="server_badge_ble">BLE</string>
+    <string name="server_badge_wifi">WiFi</string>
+
+    <!-- Default name -->
+    <string name="server_unknown_name">Unknown</string>
+
+    <string name="server_request_switch_mode_ble">Request switch to BLE</string>
+    <string name="server_request_switch_mode_wifi">Request switch to Wi-Fi</string>
+    <string name="server_request_switch_mode_rescue">Request switch to Rescue Mode</string>
+
+    <!-- No Server -->
+    <string name="no_server_title">No Server Found</string>
+    <string name="no_server_message">Please add a server to start using the app</string>
+    <string name="no_server_button">Add Server</string>
+
+    <!-- ============================================================ -->
+    <!-- SHORTCUT SCREEN                                               -->
+    <!-- ============================================================ -->
+    <string name="shortkey_title_add">Add shortcut</string>
+    <string name="shortkey_back">Back</string>
+    <string name="shortkey_saved_success">Shortcut saved</string>
+    <string name="shortkey_name_empty">Shortcut name cannot be empty</string>
+    <string name="shortkey_name_label">Shortcut name</string>
+    <string name="shortkey_name_placeholder">e.g. Save All</string>
+    <string name="shortkey_save">Save</string>
+    <string name="shortkey_combination_count">Combination (%1$d keys)</string>
+    <string name="shortkey_clear_all">Clear all</string>
+    <string name="shortkey_remove_key">Remove key</string>
+    <string name="shortkey_search_hint">Search keys…</string>
+    <string name="shortkey_search_clear">Clear search</string>
+    <string name="shortkey_no_keys_found">No keys found</string>
+
+    <string name="power_shortkey_title">No power ShortKey</string>
+    <string name="power_confirm_title">%s computer</string>
+    <string name="power_confirm_message">Are you sure you want to %s?</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — GENERAL                                         -->
+    <!-- ============================================================ -->
+    <string name="quickkey_title_add">Add Quick Key</string>
+    <string name="quickkey_title_edit">Edit Quick Key</string>
+    <string name="quickkey_back">Back</string>
+    <string name="quickkey_save">Save</string>
+    <string name="quickkey_create">Create</string>
+    <string name="quickkey_edit">Edit</string>
+    <string name="quickkey_remove">Delete</string>
+    <string name="quickkey_empty">No quick keys yet</string>
+    <string name="quickkey_saved_success">Quick key saved</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — NAME                                            -->
+    <!-- ============================================================ -->
+    <string name="quickkey_name_label">Name</string>
+    <string name="quickkey_name_placeholder">Enter quick key name</string>
+    <string name="quickkey_name_empty">Please enter a name</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — SEARCH                                          -->
+    <!-- ============================================================ -->
+    <string name="quickkey_search_hint">Search keys…</string>
+    <string name="quickkey_search_clear">Clear search</string>
+    <string name="quickkey_no_keys_found">No keys found</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — COMBINATION PREVIEW                             -->
+    <!-- ============================================================ -->
+    <string name="quickkey_combination_count">Combination (%1$d)</string>
+    <string name="quickkey_clear_all">Clear all</string>
+    <string name="quickkey_remove_key">Remove key</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — PRESET                                          -->
+    <!-- ============================================================ -->
+    <string name="quickkey_preset_all">All</string>
+    <string name="quickkey_preset_choose">Choose app</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — TYPE                                            -->
+    <!-- ============================================================ -->
+    <string name="quickkey_type_label">Type</string>
+    <string name="quickkey_type_shortcut">ShortKey</string>
+    <string name="quickkey_type_launch">Launch</string>
+
+    <!-- ============================================================ -->
+    <!-- QUICK KEYS — LAUNCH SECTION                                  -->
+    <!-- ============================================================ -->
+    <string name="quickkey_launch_section">Launch apps</string>
+
+    <string name="quickkey_preset_add_new">Add new app…</string>
+    <string name="quickkey_preset_name_placeholder">App name</string>
+    <string name="quickkey_preset_add_confirm">Confirm</string>
+    <string name="quickkey_preset_add_cancel">Cancel</string>
+
+    <!-- ============================================================ -->
+    <!-- WEIGHT SHORtKey — MAIN                                        -->
+    <!-- ============================================================ -->
+    <string name="shortkey_empty">ShortKey empty!</string>
+    <string name="shortkey_create">Create ShortKey</string>
+    <string name="shortkey_remove">Remove ShortKey</string>
+    <string name="shortkey_keyboard">Keyboard</string>
+
+    <string name="shortkey_type_media_default">Default Media</string>
+    <string name="shortkey_type_youtube">YouTube</string>
+    <string name="shortkey_type_dailymotion">Dailymotion</string>
+    <string name="shortkey_type_video_player">Video</string>
+    <string name="shortkey_type_music_player">Music</string>
+
+    <string name="media_shortkey_captions">Captions</string>
+
+    <!-- ============================================================ -->
+    <!-- WEIGHT COMMAND KEYS KEYBOARD                                  -->
+    <!-- ============================================================ -->
+    <string name="command_keys_search_hint">Search keys…</string>
+    <string name="command_keys_search_clear">Clear search</string>
+    <string name="command_keys_close">Close</string>
+    <string name="command_keys_selected_count">Selected combination (%1$d):</string>
+    <string name="command_keys_clear_all">Clear all</string>
+    <string name="command_keys_remove_key">Remove key</string>
+    <string name="command_keys_backspace">Backspace</string>
+    <string name="command_keys_send_with_keys">Send: %1$s</string>
+    <string name="command_keys_pick_more">Pick more keys…</string>
+    <string name="command_keys_sent">Sent: %1$s</string>
+    <string name="command_keys_invalid">Invalid combination</string>
+
+    <!-- Key Groups -->
+    <string name="key_group_modifiers">Modifiers</string>
+    <string name="key_group_letters">Letters</string>
+    <string name="key_group_digits">Digits</string>
+    <string name="key_group_symbols">Symbols</string>
+    <string name="key_group_function">Function</string>
+    <string name="key_group_navigation">Navigation</string>
+    <string name="key_group_control">Control</string>
+
+    <!-- ============================================================ -->
+    <!-- BOTTOM NAVIGATION                                             -->
+    <!-- ============================================================ -->
+    <string name="bottom_nav_menu">Menu</string>
+    <string name="bottom_nav_shortcut">ShortKey</string>
+    <string name="bottom_nav_keyboard">Keyboard</string>
+    <string name="bottom_nav_media">Media</string>
+    <string name="bottom_nav_browser">Browser</string>
+    <string name="bottom_nav_power">Power</string>
+
+    <!-- ============================================================ -->
+    <!-- ICON PICKER                                                   -->
+    <!-- ============================================================ -->
+    <string name="icon_picker_dropdown_loading_icons">Loading icons…</string>
+    <string name="shortkey_setup_title">ShortKey Setup</string>
+    <string name="shortkey_setup_select_option">Select option</string>
+    <string name="shortkey_setup_edit">Edit</string>
+    <string name="shortkey_setup_remove">Remove</string>
+    <string name="os_ubuntu">Ubuntu</string>
+
+    <string name="command_keys_mode_combo">Combo</string>
+    <string name="command_keys_mode_instant">Instant</string>
+    <string name="command_keys_instant_hint">Tap a key to send instantly. Modifiers (Ctrl/Shift/Alt/Win) stay latched until tapped again.</string>
+
+    <string name="reset_key_title">Reset keys?</string>
+    <string name="reset_key_message">Release all held keys (Shift, Ctrl, Alt, Win). Use when a key appears stuck.</string>
+    <string name="reset_key_confirm">Reset</string>
+    <string name="reset_key_cancel">Cancel</string>
+    <string name="reset_key_content_desc">Reset stuck keys</string>
+
+
+
+</resources>
