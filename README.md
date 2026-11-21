@@ -1,16 +1,57 @@
+## Sơ đồ Luồng Xử lý trên Máy Tính (PC Server)
 
-## 🏗️ Kiến trúc hệ thống
-
-**App Android (`MousseKeyboardHybridSystem`)** đóng vai trò là trung tâm điều khiển chính. Người dùng có thể tùy chọn kết nối trực tiếp tới **Bo mạch ESP32-S3** (hoạt động như thiết bị phần cứng cắm ngoài qua USB) hoặc kết nối thẳng tới **Phần mềm Server trên PC** (không cần phần cứng) với định dạng gói tin điều khiển tương đương nhau:
+Sơ đồ dưới đây mô tả quá trình **App Server trên Máy tính** nhận dữ liệu điều khiển từ điện thoại qua **Bluetooth (BLE)** hoặc **Wi-Fi (TCP)**, thực thi vào hệ điều hành và phản hồi trạng thái ngược lại.
 
 ```text
-                                 ┌──(Wi-Fi / BLE)──► [ 🔌 ESP32-S3 HID ] ──(USB HID)──► [ 💻 PC (Không cần cài app) ]
-                                 │
-[ 📱 App Android (Trung tâm) ] ──┤  (Người dùng tùy chọn 1 trong 2 chế độ kết nối)
-                                 │
-                                 └──(Wi-Fi / LAN)──► [ 🖥️ HybridMouseControlServer ] ──► [ 💻 PC (Cài phần mềm) ]
+                                 +-----------------------+
+
+                                 |   MÁY KHÁCH ANDROID   |
+                                 |    (Hybrid Remote)    |
+                                 +-----------+-----------+
+                                             |
+                      +----------------------+----------------------+
+
+                      | (Gửi gói lệnh V2/UTF-8 & Nhận trạng thái)   |
+                      v                                             v
+        +---------------------------+                 +---------------------------+
+
+        |       BLUETOOTH BLE       |                 |       WI-FI NỘI BỘ        |
+        |   (Windows GATT Server)   |                 |    (Winsock TCP Server)   |
+        +-------------+-------------+                 +-------------+-------------+
+
+                      |                                             |
+                      +----------------------+----------------------+
+                                             |
+                                             v
+                                 +-----------------------+
+
+                                 |   BỘ ĐIỀU PHỐI LÕI    |
+                                 |   (ServerCore.cpp)    |
+                                 +-----------+-----------+
+                                             |
+          +----------------------------------+----------------------------------+
+
+          | (Phân tích & Thực thi)                                              | (Đọc trạng thái đèn)
+          v                                                                     v
++-------------------+                                                 +-------------------+
+
+|   XỬ LÝ NHẬP LIỆU |                                                 |  ĐỒNG BỘ ĐÈN LED  |
+| (WindowsInput.cpp)|                                                 |   (GetKeyState)   |
++---------+---------+                                                 +---------+---------+
+
+          |                                                                     |
+          | Gọi Windows API                                                     | Đóng gói 0xBB
+          | (SendInput / LockWorkStation)                                       | [Num, Caps, Scroll]
+          v                                                                     |
++-------------------+                                                           |
+
+| HỆ ĐIỀU HÀNH PC   | ----------------------------------------------------------+
+| (Windows Desktop) |      (Tự động báo trạng thái đèn sau khi bấm phím)
++-------------------+
 ```
 
-### 🔄 Hai chế độ hoạt động linh hoạt
-1. **Chế độ Phần cứng (Qua ESP32-S3):** App Android gửi lệnh qua Wi-Fi/BLE tới bo mạch ESP32-S3. Bo mạch giả lập chuột/bàn phím vật lý (USB HID) cắm vào máy tính (hoạt động cả trong BIOS, màn hình khóa hoặc máy tính không cho cài phần mềm lạ).
-2. **Chế độ Phần mềm (Qua Windows Server):** App Android gửi trực tiếp gói tin tương tự qua mạng LAN/Wi-Fi tới phần mềm `HybridMouseControlServer` cài sẵn trên PC để điều khiển chuột/bàn phím (không cần mang theo bo mạch).
+### Tóm tắt luồng hoạt động trên PC Server
+1. **Tiếp nhận không dây:** Máy tính mở song song hoặc chuyển đổi linh hoạt giữa **Bluetooth GATT Server** và **TCP Socket Server** (cổng `2000`) để đón gói tin từ điện thoại.
+2. **Điều phối trung tâm (`ServerCore.cpp`):** Xác thực mật khẩu (`0xF3`), kiểm tra trạng thái mạng/Bluetooth tự động dự phòng (Fallback) và phân loại khung dữ liệu.
+3. **Thực thi hệ thống (`WindowsInput.cpp`):** Chuyển đổi mã HID thành sự kiện chuột/bàn phím (`SendInput`), gõ văn bản Unicode/Emoji (`KEYEVENTF_UNICODE`) hoặc khóa màn hình (`LockWorkStation` cho `Win + L`).
+4. **Phản hồi thời gian thực:** Ngay khi kết nối xong hoặc ngay sau khi thực thi các phím khóa (`Caps Lock`, `Num Lock`, `Scroll Lock`), hệ thống đọc trạng thái thật từ Windows và bắn gói `0xBB` ngược về điện thoại.

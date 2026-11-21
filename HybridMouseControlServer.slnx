@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="HybridMouseControlDLL/HybridMouseControlDLL.vcxproj" Id="7b569a18-db5e-4a6d-aad1-49e391126a3e" />
+  <Project Path="HybridMouseControlServer.vcxproj" Id="ea02182c-31c5-40cd-857e-9a225d54ccd9" />
+  <Project Path="HybridMouseControlWizard/HybridMouseControlWizard.vcxproj" Id="458e7f10-2460-47ce-9f6e-3bab2aa047f8" />
+</Solution>
