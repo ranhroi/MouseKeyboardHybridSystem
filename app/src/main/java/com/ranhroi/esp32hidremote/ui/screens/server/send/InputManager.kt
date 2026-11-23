@@ -5,6 +5,7 @@ import com.ranhroi.esp32hidremote.data.hid.HidConstants
 import com.ranhroi.esp32hidremote.data.hid.ShortKeyParser
 import com.ranhroi.esp32hidremote.data.hid.VietnameseUtils
 import com.ranhroi.esp32hidremote.models.CombineSettingModel
+import com.ranhroi.esp32hidremote.models.KeyboardLanguage
 import com.ranhroi.esp32hidremote.models.QuickKeyModel
 import com.ranhroi.esp32hidremote.models.ShortKeyModel
 import com.ranhroi.esp32hidremote.utils.getCurrentKeyboardLanguage
@@ -31,21 +32,26 @@ class InputManager(
     private val _momentaryModifiers = MutableStateFlow<Byte>(0x00)
     val momentaryModifiers: StateFlow<Byte> = _momentaryModifiers.asStateFlow()
 
+    private val _isHid = MutableStateFlow(false)
+    val isHid: StateFlow<Boolean> = _isHid.asStateFlow()
 
-    private val _keyboardLanguageCode = MutableStateFlow("en")
-    val keyboardLanguageCode: StateFlow<String> = _keyboardLanguageCode.asStateFlow()
+    private val _keyboardLanguage = MutableStateFlow(KeyboardLanguage())
+    val keyboardLanguage: StateFlow<KeyboardLanguage> = _keyboardLanguage.asStateFlow()
 
     @Volatile
-    private var isEnglish = false
+    private var isVietnamese = false
 
     fun updateKeyboardLanguage() {
         val language = context.getCurrentKeyboardLanguage()
         if (language != null) {
-            _keyboardLanguageCode.value = language.languageCode
-            isEnglish = language.languageCode == "en"
+            _keyboardLanguage.value = language
+            isVietnamese = _keyboardLanguage.value.languageCode == "vi"
         }
     }
 
+    fun setHid(hid: Boolean) {
+        _isHid.value = hid
+    }
 
     // ============================================================
     // MOUSE CONTROLS
@@ -158,32 +164,32 @@ class InputManager(
         hidTransmitter.sendKeyTap(HidConstants.MOD_NONE, HidConstants.KEY_SCROLL_LOCK)
     }
 
-    fun onTextHid(deltaText: String) {
-        if (deltaText.isEmpty()) return
-
-        val outputText = when (_keyboardLanguageCode.value) {
-            "vi" -> VietnameseUtils.autoConvert(deltaText)
-            "en" -> deltaText
-            else -> deltaText
-        }
-
-        val taps = mutableListOf<Pair<Byte, Byte>>()
-
-        for (ch in outputText) {
-            val mapping = HidConstants.mapCharacterToHid(ch)
-            if (mapping != null) {
-                taps.add(mapping)
+    fun onSendText(deltaText: String) {
+        if (_isHid.value) {
+            val outputText = if (isVietnamese) {
+                VietnameseUtils.autoConvert(deltaText)
+            } else {
+                deltaText
             }
+
+            val taps = mutableListOf<Pair<Byte, Byte>>()
+            for (ch in outputText) {
+                val mapping = HidConstants.mapCharacterToHid(ch)
+                if (mapping != null) {
+                    taps.add(mapping)
+                }
+            }
+
+            if (isVietnamese) {
+                hidTransmitter.sendKeyTapsWithDelay(taps, config.delayText)
+            } else {
+                hidTransmitter.sendKeyTaps(taps)
+            }
+        } else {
+            hidTransmitter.sendTextUtf8(deltaText)
         }
-
-        if (isEnglish) hidTransmitter.sendKeyTaps(taps) else hidTransmitter.sendKeyTapsWithDelay(
-            taps,config.delayText
-        )
     }
 
-    fun onTextInput(deltaText: String) {
-        hidTransmitter.sendTextUtf8(deltaText)
-    }
 
     fun sendConsumerTap(usage: Int) = hidTransmitter.sendConsumerTap(usage)
     fun sendSystemAction(action: Byte) = hidTransmitter.sendSystemAction(action)

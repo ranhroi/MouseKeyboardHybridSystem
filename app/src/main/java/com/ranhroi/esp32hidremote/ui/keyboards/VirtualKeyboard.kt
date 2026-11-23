@@ -37,8 +37,6 @@ fun VirtualKeyboard(
     context: Context,
     inputManager: InputManager? = null
 ) {
-    val isHID = LocalIsHID.current
-
     fun triggerHaptic(strong: Boolean = false) {
         view.performHapticFeedback(
             if (strong) HapticFeedbackConstants.LONG_PRESS else HapticFeedbackConstants.KEYBOARD_TAP
@@ -58,11 +56,7 @@ fun VirtualKeyboard(
 
                     override fun commitText(text: CharSequence?, newCursorPosition: Int): Boolean {
                         text.toString().let {
-                            if (isHID) {
-                                inputManager?.onTextHid(it)
-                            } else {
-                                inputManager?.onTextInput(it)
-                            }
+                            inputManager?.onSendText(it)
                         }
                         return super.commitText(text, newCursorPosition)
                     }

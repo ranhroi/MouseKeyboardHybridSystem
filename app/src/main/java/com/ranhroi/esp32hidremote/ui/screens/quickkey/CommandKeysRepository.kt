@@ -1,4 +1,4 @@
-package com.ranhroi.esp32hidremote.ui.keyboards
+package com.ranhroi.esp32hidremote.ui.screens.quickkey
 
 import com.ranhroi.esp32hidremote.R
 import com.ranhroi.esp32hidremote.models.KeyGroup

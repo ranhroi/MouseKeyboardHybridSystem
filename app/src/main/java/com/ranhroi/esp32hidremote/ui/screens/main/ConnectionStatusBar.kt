@@ -60,6 +60,8 @@ import com.ranhroi.esp32hidremote.models.CombineSettingModel
 import com.ranhroi.esp32hidremote.models.ConnectionStatus
 import com.ranhroi.esp32hidremote.models.ConnectionStatusModel
 import com.ranhroi.esp32hidremote.models.DeviceServerModel
+import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsBluetoothOn
+import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsWifiOn
 import com.ranhroi.esp32hidremote.ui.screens.server.NetworkStatusViewModel
 import com.ranhroi.esp32hidremote.ui.theme.DangerRed
 import com.ranhroi.esp32hidremote.ui.theme.NeonCyan
@@ -87,9 +89,9 @@ fun ConnectionStatusBar(
 ) {
     val view = LocalView.current
     val currentServer by rememberUpdatedState(uiState?.state?.server)
-    val isWifiOn by networkStatus.isWifiOn.collectAsStateWithLifecycle()
-    val isBluetoothOn by networkStatus.isBluetoothOn.collectAsStateWithLifecycle()
 
+    val isWifiOn = LocalIsWifiOn.current
+    val isBluetoothOn = LocalIsBluetoothOn.current
 
     // Kiểm tra cả 2 mạng đều tắt
     val effectiveStatus = if (!isWifiOn && !isBluetoothOn) {

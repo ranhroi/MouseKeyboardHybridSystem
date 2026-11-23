@@ -83,7 +83,6 @@ import androidx.navigation.NavHostController
 import com.ranhroi.esp32hidremote.R
 import com.ranhroi.esp32hidremote.models.KeyboardModel
 import com.ranhroi.esp32hidremote.ui.components.IconPickerDropdown
-import com.ranhroi.esp32hidremote.ui.keyboards.CommandKeysRepository
 import com.ranhroi.esp32hidremote.ui.theme.ButtonDark
 import com.ranhroi.esp32hidremote.ui.theme.NeonCyan
 import com.ranhroi.esp32hidremote.ui.theme.SurfaceCardBorder

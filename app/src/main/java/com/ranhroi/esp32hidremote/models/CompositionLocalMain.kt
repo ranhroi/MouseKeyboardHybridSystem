@@ -1,6 +1,7 @@
 package com.ranhroi.esp32hidremote.ui.keyboards
 
 import androidx.compose.runtime.compositionLocalOf
+import com.ranhroi.esp32hidremote.models.KeyboardLanguage
 
 /**
  * ============================================================
@@ -78,7 +79,12 @@ import androidx.compose.runtime.compositionLocalOf
  *   - Bo mạch  : DOWN/UP (ESP32 tự gửi LED qua usbEventCallback)
  *   - App PC   : TAP (server PC chỉ nhận diện KEY_TAP 0x04)
  */
-val LocalIsHID = compositionLocalOf { true }
+
+val LocalIsWifiOn = compositionLocalOf { false }
+
+val LocalIsBluetoothOn = compositionLocalOf { false }
+
+val LocalIsHID = compositionLocalOf { false }
 
 val LocalIsBluetooth = compositionLocalOf { true }
 
@@ -152,7 +158,7 @@ val LocalIsButtonText = compositionLocalOf { true }
  * Mã ngôn ngữ bàn phím ("en", "vi", ...).
  * Tần suất đổi: khi user đổi ngôn ngữ.
  */
-val LocalLanguageCode = compositionLocalOf { "en" }
+val LocalKeyboardLanguage = compositionLocalOf { KeyboardLanguage() }
 
 // ============================================================
 // NHÓM 5: TỐC ĐỘ & DELAY

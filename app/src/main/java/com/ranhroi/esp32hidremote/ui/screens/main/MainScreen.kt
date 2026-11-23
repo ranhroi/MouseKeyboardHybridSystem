@@ -67,6 +67,7 @@ import com.ranhroi.esp32hidremote.ui.drawer.DrawerContent
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalDelayText
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsAutoPing
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsBluetooth
+import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsBluetoothOn
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsButtonText
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsCapsLockOn
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsFloating
@@ -76,7 +77,8 @@ import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsNumLockOn
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsRotation
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsScrollDirection
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsScrollLockOn
-import com.ranhroi.esp32hidremote.ui.keyboards.LocalLanguageCode
+import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsWifiOn
+import com.ranhroi.esp32hidremote.ui.keyboards.LocalKeyboardLanguage
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalOsIndex
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalSpeedPressed
 import com.ranhroi.esp32hidremote.ui.keyboards.VirtualKeyboard
@@ -113,6 +115,9 @@ fun MainScreen(
     val context = LocalContext.current
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
+    val isWifiOn by networkStatus.isWifiOn.collectAsStateWithLifecycle()
+    val isBluetoothOn by networkStatus.isBluetoothOn.collectAsStateWithLifecycle()
+
     val config by connection.config.collectAsStateWithLifecycle()
     val hasServers by connection.hasServers.collectAsStateWithLifecycle()
     val isLoadingServers by connection.isLoadingServers.collectAsStateWithLifecycle()
@@ -121,7 +126,7 @@ fun MainScreen(
     val uiState by connection.uiState.collectAsStateWithLifecycle()
 
     val inputManager by connection.inputState.collectAsStateWithLifecycle()
-    val languageCode by inputManager.keyboardLanguageCode.collectAsState()
+    val keyboardLanguage by inputManager.keyboardLanguage.collectAsState()
 
     var showDevicePicker by rememberSaveable { mutableStateOf(false) }
 
@@ -196,6 +201,10 @@ fun MainScreen(
         }
     }
 
+    LaunchedEffect(uiState.state.server.isHID) {
+        inputManager.setHid(uiState.state.server.isHID)
+    }
+
     DisposableEffect(Unit) {
         inputManager.updateKeyboardLanguage()
         onDispose {
@@ -213,6 +222,9 @@ fun MainScreen(
     // ============================================================
     CompositionLocalProvider(
         // ── Nhóm 1: Server & kết nối ──
+        LocalIsWifiOn provides isWifiOn,
+        LocalIsBluetoothOn provides isBluetoothOn,
+
         LocalIsHID provides uiState.state.server.isHID,
         LocalIsBluetooth provides uiState.state.server.bluetooth,
 
@@ -220,7 +232,7 @@ fun MainScreen(
         LocalIsCapsLockOn provides uiState.isCapsLockOn,
         LocalIsNumLockOn provides uiState.isNumLockOn,
         LocalIsScrollLockOn provides uiState.isScrollLockOn,
-        LocalLanguageCode provides languageCode,
+        LocalKeyboardLanguage provides keyboardLanguage,
 
         // ── Nhóm 3: Cấu hình bàn phím ──
         LocalIsRotation provides config.isRotation,

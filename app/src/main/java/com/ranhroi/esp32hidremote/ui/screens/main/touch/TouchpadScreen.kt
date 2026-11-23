@@ -46,14 +46,14 @@ import com.ranhroi.esp32hidremote.ui.components.MatchboxDpad
 import com.ranhroi.esp32hidremote.ui.components.SelectAppState
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsBluetooth
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsButtonText
-import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsCapsLockOn
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsFloating
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsHID
-import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsNumLockOn
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsRotation
-import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsScrollLockOn
-import com.ranhroi.esp32hidremote.ui.keyboards.LocalLanguageCode
+import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsWifiOn
+import com.ranhroi.esp32hidremote.ui.keyboards.LocalKeyboardLanguage
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalSpeedPressed
+import com.ranhroi.esp32hidremote.ui.keyboards.VoicePreviewBadge
+import com.ranhroi.esp32hidremote.ui.keyboards.rememberVoiceState
 import com.ranhroi.esp32hidremote.ui.screens.server.ConnectionViewModel
 import com.ranhroi.esp32hidremote.ui.screens.server.send.InputManager
 import com.ranhroi.esp32hidremote.ui.weight.WeightShortKeysFloating
@@ -75,10 +75,8 @@ fun TouchpadScreen(
     val isButtonText = LocalIsButtonText.current
     val speedPressed = LocalSpeedPressed.current
     val isFloating = LocalIsFloating.current
-    val isCapsLockOn = LocalIsCapsLockOn.current
-    val isNumLockOn = LocalIsNumLockOn.current
-    val isScrollLockOn = LocalIsScrollLockOn.current
-    val languageCode = LocalLanguageCode.current
+    val keyboardLanguage = LocalKeyboardLanguage.current
+    val isWifiOn = LocalIsWifiOn.current
 
     var showResetConfirm by remember { mutableStateOf(false) }
 
@@ -90,41 +88,25 @@ fun TouchpadScreen(
 
     val color = MaterialTheme.colorScheme.surface.copy(alpha = 0.3f)
 
-    val leftMenuItems = listOfNotNull(
-        HeaderMenuModel(
-            icon = "outline_scrollable_header",
-            iconTint = if (isScrollLockOn) Color.White else Color.Gray,
-            onClick = {
-                triggerHaptic(false)
-                inputManager.sendScrollLock()
-            }
-        ),
-        HeaderMenuModel(
-            icon = "outline_numbers",
-            iconTint = if (isNumLockOn) Color.White else Color.Gray,
-            onClick = {
-                triggerHaptic(false)
-                inputManager.sendNumLock()
-            }
-
-        ),
-        HeaderMenuModel(
-            icon = "outline_keyboard_capslock_badge",
-            iconTint = if (isCapsLockOn) Color.White else Color.Gray,
-            onClick = {
-                triggerHaptic(false)
-                inputManager.sendCapsLock()
-            }
-        ),
-    )
+    val voiceState = rememberVoiceState(isWifiOn, keyboardLanguage) { text ->
+        inputManager.onSendText(text)
+    }
 
     val rightMenuItems = listOfNotNull(
+        HeaderMenuModel(
+            icon = if (voiceState.isListening) "baseline_mic" else "baseline_mic_off",
+            iconTint = if (voiceState.isListening) Color.Red else Color.White,
+            onClick = {
+                triggerHaptic(false)
+                voiceState.toggle()
+            }
+        ),
         HeaderMenuModel(
             icon = if (isRotation) "outline_rotate_90_degrees_ccw" else "outline_rotate_90_degrees_cw",
             iconTint = if (isRotation) Color.White else Color.LightGray,
             onClick = { connection.updateRotation(!isRotation) },
             isVisible = { selectState.isControlCircle }
-            ),
+        ),
         HeaderMenuModel(
             icon = if (selectState.isControlCircle) "baseline_games" else "outline_gamepad",
             iconTint = if (selectState.isControlCircle) Color.White else null,
@@ -132,14 +114,15 @@ fun TouchpadScreen(
             modifier = Modifier.size(17.dp)
         ),
         HeaderMenuModel(
-            text = languageCode.uppercase(LocalLocale.current.platformLocale),
+            text = keyboardLanguage.languageCode.uppercase(LocalLocale.current.platformLocale),
             modifier = Modifier.size(43.dp),
             onClick = { inputManager.updateKeyboardLanguage() },
             isVisible = { isHID }
         ),
         HeaderMenuModel(
             icon = "baseline_cleaning_services",
-            onClick = { showResetConfirm = true }
+            onClick = { showResetConfirm = true },
+            modifier = Modifier.size(17.dp),
         ),
     )
 
@@ -182,7 +165,7 @@ fun TouchpadScreen(
             HeaderHorizontal(
                 view = view,
                 modifier = Modifier.fillMaxWidth(),
-                leftItems = leftMenuItems,
+//                leftItems = leftMenuItems,
                 rightItems = rightMenuItems,
                 color = color,
             )
@@ -273,6 +256,19 @@ fun TouchpadScreen(
                 )
             }
         }
+
+        AnimatedVisibility(
+            visible = voiceState.isListening,
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 56.dp)
+                .zIndex(2f)
+        ) {
+            VoicePreviewBadge(voiceState = voiceState)
+        }
+
     }
 
     if (showResetConfirm) {
