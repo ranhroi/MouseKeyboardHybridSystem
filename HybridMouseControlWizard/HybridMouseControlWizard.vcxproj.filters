@@ -54,10 +54,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\x64\Debug\assets\icon_main.ico">
+    <Image Include="..\Release\assets\icon_main.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\x64\Debug\assets\icon_tray.ico">
+    <Image Include="..\Release\assets\icon_tray.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

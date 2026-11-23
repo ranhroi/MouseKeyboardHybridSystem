@@ -95,12 +95,12 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\Objects-Application\Computer\HybridMouseControlServer\HybridMouseControlDLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Objects-Application\Object_HybridMouse\Windows_Server\HybridMouseControlDLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\Objects-Application\Computer\HybridMouseControlServer\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\Objects-Application\Object_HybridMouse\Windows_Server\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>HybridMouseControlDLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -162,8 +162,8 @@
     <ResourceCompile Include="HybridMouseControlWizard.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\x64\Debug\assets\icon_main.ico" />
-    <Image Include="..\x64\Debug\assets\icon_tray.ico" />
+    <Image Include="..\Release\assets\icon_main.ico" />
+    <Image Include="..\Release\assets\icon_tray.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

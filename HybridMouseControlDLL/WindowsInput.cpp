@@ -416,6 +416,9 @@ namespace mouseKeyboard {
     //  Worker loop
     // ============================================================
     void InputEngine::workerLoop() {
+
+        SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
+
         while (!kbStop_) {
             KbEvent e{};
             {

@@ -676,6 +676,10 @@ extern "C" {
         gStarted = true;
         gMode = gCfg.startMode;
 
+        // Nâng mức ưu tiên của toàn bộ tiến trình Server lên mức Cao (High)
+        // Giúp cả luồng BLE GATT và TCP không bị các phần mềm nặng khác chiếm dụng CPU
+        SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
+
         return 1;
     }
 

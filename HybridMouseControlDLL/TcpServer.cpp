@@ -49,6 +49,10 @@ namespace mouseKeyboard {
     //  TCP loop
     // ============================================================
     static void tcpLoop() {
+
+        // Đẩy luồng nhận dữ liệu chuột/phím lên mức ưu tiên thời gian thực cao nhất
+        SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
+
         while (!gTcpStop) {
             sockaddr_storage addr{};
             int alen = sizeof(addr);
