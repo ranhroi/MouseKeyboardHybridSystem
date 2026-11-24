@@ -49,7 +49,6 @@ import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsButtonText
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsFloating
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsHID
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsRotation
-import com.ranhroi.esp32hidremote.ui.keyboards.LocalIsWifiOn
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalKeyboardLanguage
 import com.ranhroi.esp32hidremote.ui.keyboards.LocalSpeedPressed
 import com.ranhroi.esp32hidremote.ui.keyboards.VoicePreviewBadge
@@ -76,7 +75,6 @@ fun TouchpadScreen(
     val speedPressed = LocalSpeedPressed.current
     val isFloating = LocalIsFloating.current
     val keyboardLanguage = LocalKeyboardLanguage.current
-    val isWifiOn = LocalIsWifiOn.current
 
     var showResetConfirm by remember { mutableStateOf(false) }
 
@@ -88,7 +86,7 @@ fun TouchpadScreen(
 
     val color = MaterialTheme.colorScheme.surface.copy(alpha = 0.3f)
 
-    val voiceState = rememberVoiceState(isWifiOn, keyboardLanguage) { text ->
+    val voiceState = rememberVoiceState(keyboardLanguage) { text ->
         inputManager.onSendText(text)
     }
 

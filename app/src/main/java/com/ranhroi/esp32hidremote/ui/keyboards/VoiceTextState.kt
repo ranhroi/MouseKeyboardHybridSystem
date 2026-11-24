@@ -42,10 +42,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.ranhroi.esp32hidremote.R
 import com.ranhroi.esp32hidremote.models.KeyboardLanguage
+import com.ranhroi.esp32hidremote.utils.getStringSafe
+import com.ranhroi.esp32hidremote.utils.hasValidInternet
 import com.ranhroi.esp32hidremote.utils.showToastLong
 
 private const val SILENCE_TIMEOUT_MS = 5000L
@@ -55,22 +59,21 @@ class VoiceTextState(
     private val context: Context,
     private val onCommitText: (String) -> Unit,
     private val requestPermission: () -> Unit,
-    private val isOfflineProvider: () -> Boolean,
     private val languageTagProvider: () -> String
 ) {
     var isListening by mutableStateOf(false); private set
     var liveText by mutableStateOf(""); private set
     var soundLevel by mutableFloatStateOf(0f); private set
 
-    /** null = chưa kiểm tra được, true = đã cài gói ngoại tuyến cho ngôn ngữ hiện tại, false = chưa cài */
+    /** null = chưa kiểm tra được, true = đã cài gói ngoại tuyến, false = chưa cài */
     var offlineLanguageAvailable by mutableStateOf<Boolean?>(null); private set
 
     private var recognizer: SpeechRecognizer? = null
+    private var lastIsOnline: Boolean? = null
     private var isStoppingByUser = false
     private val handler = Handler(Looper.getMainLooper())
 
     private val silenceTimeoutRunnable = Runnable {
-        // Hết 5 giây không có âm thanh: hủy toàn bộ dữ liệu và tắt mic
         forceClose()
     }
 
@@ -78,11 +81,6 @@ class VoiceTextState(
         refreshOfflineAvailability()
     }
 
-    /**
-     * Kiểm tra gói ngoại tuyến cho ngôn ngữ hiện tại.
-     * So sánh theo mã ngôn ngữ ngắn (vd "vi") thay vì tag đầy đủ (vd "vi-VN"),
-     * để tránh trường hợp bàn phím trả về "vi" nhưng gói cài là "vi-VN" (hoặc ngược lại).
-     */
     fun refreshOfflineAvailability() {
         if (Build.VERSION.SDK_INT < 33) {
             offlineLanguageAvailable = null
@@ -101,9 +99,11 @@ class VoiceTextState(
                 object : RecognitionSupportCallback {
                     override fun onSupportResult(recognitionSupport: RecognitionSupport) {
                         val installed = recognitionSupport.installedOnDeviceLanguages
-                        val normalizedTarget = currentTag.replace('_', '-').substringBefore('-').lowercase()
+                        val normalizedTarget =
+                            currentTag.replace('_', '-').substringBefore('-').lowercase()
                         offlineLanguageAvailable = installed.any { tag ->
-                            tag.replace('_', '-').substringBefore('-').lowercase() == normalizedTarget
+                            tag.replace('_', '-').substringBefore('-')
+                                .lowercase() == normalizedTarget
                         }
                         runCatching { probe.destroy() }
                     }
@@ -122,22 +122,32 @@ class VoiceTextState(
     fun toggle() {
         if (isListening) {
             stop(graceful = true)
+            return
+        }
+
+        val isOnline = context.hasValidInternet()
+
+        // Chỉ kiểm tra và nhắc tải file khi KHÔNG CÓ Internet (!isOnline)
+        if (!isOnline && offlineLanguageAvailable == false) {
+            showDownloadPrompt(context)
+            return
+        }
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            start()
         } else {
-            if (isOfflineProvider() && offlineLanguageAvailable == false) {
-                showDownloadPrompt(context)
-                return
-            }
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)
-                == PackageManager.PERMISSION_GRANTED
-            ) start() else requestPermission()
+            requestPermission()
         }
     }
 
     fun start() {
-        ensureRecognizer()
+        val isOnline = context.hasValidInternet()
+        ensureRecognizer(isOnline)
         isListening = true
         isStoppingByUser = false
-        listenOnce()
+        listenOnce(isOnline)
         resetSilenceTimer()
     }
 
@@ -176,8 +186,8 @@ class VoiceTextState(
         } catch (_: Exception) {
         }
         recognizer = null
+        lastIsOnline = null
     }
-
     private fun resetSilenceTimer() {
         handler.removeCallbacks(silenceTimeoutRunnable)
         handler.postDelayed(silenceTimeoutRunnable, SILENCE_TIMEOUT_MS)
@@ -187,15 +197,27 @@ class VoiceTextState(
         handler.removeCallbacks(silenceTimeoutRunnable)
     }
 
-    private fun ensureRecognizer() {
-        if (recognizer != null) return
-        recognizer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-            && SpeechRecognizer.isOnDeviceRecognitionAvailable(context)
-        ) {
-            SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
-        } else {
-            SpeechRecognizer.createSpeechRecognizer(context)
+    private fun ensureRecognizer(useOnline: Boolean) {
+        // Tự động làm mới recognizer nếu trạng thái mạng thay đổi (Online <-> Offline)
+        if (recognizer != null && lastIsOnline != useOnline) {
+            try {
+                recognizer?.destroy()
+            } catch (_: Exception) {
+            }
+            recognizer = null
         }
+
+        if (recognizer != null) return
+
+        lastIsOnline = useOnline
+        recognizer =
+            if (!useOnline && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                SpeechRecognizer.isOnDeviceRecognitionAvailable(context)
+            ) {
+                SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
+            } else {
+                SpeechRecognizer.createSpeechRecognizer(context)
+            }
 
         recognizer?.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {}
@@ -240,7 +262,7 @@ class VoiceTextState(
                     forceClose()
                     return
                 }
-                if (error == 12 || error == 13) {
+                if (!context.hasValidInternet() && (error == 12 || error == 13)) {
                     showDownloadPrompt(context)
                 }
                 forceClose()
@@ -250,19 +272,18 @@ class VoiceTextState(
         })
     }
 
-    private fun listenOnce() {
+    private fun listenOnce(useOnline: Boolean) {
         val currentTag = languageTagProvider().ifBlank { FALLBACK_LANGUAGE_TAG }
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, currentTag)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
 
-            if (isOfflineProvider()) {
+            if (!useOnline) {
                 @Suppress("DEPRECATION")
                 putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+            } else {
+                putExtra("android.speech.extra.PREFER_OFFLINE", false)
             }
 
             if (Build.VERSION.SDK_INT >= 33) {
@@ -270,8 +291,6 @@ class VoiceTextState(
                     RecognizerIntent.EXTRA_ENABLE_FORMATTING,
                     RecognizerIntent.FORMATTING_OPTIMIZE_QUALITY
                 )
-                // Không dùng EXTRA_SEGMENTED_SESSION và EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS
-                // vì chúng gây loạn chữ và chặn logic tắt sau 5 giây.
             }
         }
         try {
@@ -284,7 +303,6 @@ class VoiceTextState(
 
 @Composable
 fun rememberVoiceState(
-    isOffline: Boolean,
     keyboardLanguage: KeyboardLanguage,
     onCommitText: (String) -> Unit
 ): VoiceTextState {
@@ -294,7 +312,6 @@ fun rememberVoiceState(
         contract = ActivityResultContracts.RequestPermission()
     ) { granted -> if (granted) stateRef?.start() }
 
-    val offlineState = rememberUpdatedState(isOffline)
     val languageState = rememberUpdatedState(keyboardLanguage)
 
     val voiceState = remember {
@@ -302,12 +319,10 @@ fun rememberVoiceState(
             context = context,
             onCommitText = onCommitText,
             requestPermission = { launcher.launch(Manifest.permission.RECORD_AUDIO) },
-            isOfflineProvider = { offlineState.value },
             languageTagProvider = { languageState.value.languageTag.ifBlank { FALLBACK_LANGUAGE_TAG } }
         ).also { stateRef = it }
     }
 
-    // Khi ngôn ngữ bàn phím thay đổi, kiểm tra lại gói ngoại tuyến cho ngôn ngữ mới
     LaunchedEffect(languageState.value.languageTag) {
         voiceState.refreshOfflineAvailability()
     }
@@ -346,7 +361,7 @@ fun VoicePreviewBadge(voiceState: VoiceTextState) {
         }
         Spacer(Modifier.width(10.dp))
         Text(
-            text = voiceState.liveText.ifEmpty { "Hãy nói gì đó..." },
+            text = voiceState.liveText.ifEmpty { stringResource(R.string.voice_text_live) },
             color = Color.White,
             style = MaterialTheme.typography.bodyMedium,
             maxLines = 2,
@@ -356,9 +371,5 @@ fun VoicePreviewBadge(voiceState: VoiceTextState) {
 }
 
 private fun showDownloadPrompt(context: Context) {
-    context.showToastLong(
-        "Chưa cài đặt gói ngoại tuyến cho ngôn ngữ hiện tại.\n" +
-                "Vui lòng vào Cài đặt → Hệ thống → Nhận dạng giọng nói → Nhận dạng ngoại tuyến, " +
-                "tải xuống ngôn ngữ tương ứng, sau đó thử lại."
-    )
+    context.showToastLong(context.getStringSafe((R.string.voice_text_show_toast)))
 }

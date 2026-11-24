@@ -532,6 +532,6 @@
     <string name="reset_key_cancel">Cancel</string>
     <string name="reset_key_content_desc">Reset stuck keys</string>
 
-
-
+    <string name="voice_text_live">Say something...</string>
+    <string name="voice_text_show_toast">The offline package for the current language has not been installed.\n Please go to → Settings → System → Speech Recognition → Offline recognition, download the appropriate language, and then try again.</string>
 </resources>

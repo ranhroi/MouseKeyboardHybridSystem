@@ -539,4 +539,9 @@
     <string name="reset_key_cancel">Huỷ</string>
     <string name="reset_key_content_desc">Reset phím bị treo</string>
 
+    <string name="voice_text_live">Hãy nói gì đó...</string>
+    <string name="voice_text_show_toast">
+        Chưa cài đặt gói ngoại tuyến cho ngôn ngữ hiện tại.\n
+                Vui lòng vào Cài đặt → Hệ thống → Nhận dạng giọng nói → Nhận dạng ngoại tuyến,
+                tải xuống ngôn ngữ tương ứng, sau đó thử lại.</string>
 </resources>
